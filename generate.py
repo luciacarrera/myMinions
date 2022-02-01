@@ -13,47 +13,29 @@ def Create_World():
 def Create_Robot():
     pyrosim.Start_URDF("body.urdf")
 
-    # this cube is part of the robot (Link 0) - uses abs coordinates
+    # LINK: TORSO (abs)
     length, width, height = 1, 1, 1
-    x,y, z = 0,0, height/2
-    pyrosim.Send_Cube(name="Link0", pos=[x, y, z] , size=[length, width, height]  )
+    x,y, z = 0, 0, 1+height/2
+    pyrosim.Send_Cube(name="Torso", pos=[x, y, z] , size=[length, width, height]  )
 
-    # joint between leg and torso (name should always be Parent_Child) - uses absolute coordinates
-    x, y, z = 0, 0, 1
-    pyrosim.Send_Joint( name = "Link0_Link1" , parent= "Link0" , child = "Link1" , type = "revolute", position = [x,y,z])
+    # JOINT: TORSO - BACKLEG (abs)
+    x, y, z = 0.5, 0, 1
+    pyrosim.Send_Joint( name = "Torso_Backleg" , parent= "Torso" , child = "Backleg" , type = "revolute", position = [x,y,z])
     
-    # Leg (second link) Link 1# joint between leg and torso (name should always be Parent_Child) 
+    # LINK: BACKLEG (rel)
     length, width, height = 1, 1, 1
-    x,y, z = 0,0,0.5
-    pyrosim.Send_Cube(name="Link1", pos=[x, y, z] , size=[length, width, height]  )
+    x,y, z = 0.5,0,-0.5
+    pyrosim.Send_Cube(name="Backleg", pos=[x, y, z] , size=[length, width, height]  )
     
-    # second joint - relative coordinates
-    x, y, z = 0,0,1
-    pyrosim.Send_Joint( name = "Link1_Link2" , parent= "Link1" , child = "Link2" , type = "revolute", position = [x, y, z])
+    # JOINT: TORSO - FRONTLEG (abs)
+    x, y, z = -0.5, 0, 1
+    pyrosim.Send_Joint( name = "Torso_Frontleg" , parent= "Torso" , child = "Frontleg" , type = "revolute", position = [x, y, z])
 
-    # third link - relative coordinates
+    # LINK: FRONTLEG (rel)
     length, width, height = 1, 1, 1
-    x,y, z = 0,0,0.5
-    pyrosim.Send_Cube(name="Link2", pos=[x, y, z] , size=[length, width, height]  )
-
-    # third joint - relative coordinates
-    x, y, z = 0,0.5,0.5
-    pyrosim.Send_Joint( name = "Link2_Link3" , parent= "Link2" , child = "Link3" , type = "revolute", position = [x, y, z])
-
-    # fourth link - relative coordinates
-    length, width, height = 1, 1, 1
-    x,y, z = 0,0.5,0
-    pyrosim.Send_Cube(name="Link3", pos=[x, y, z] , size=[length, width, height]  )
-
-    # fourth joint - relative coordinates
-    x, y, z = 0,1,0
-    pyrosim.Send_Joint( name = "Link3_Link4" , parent= "Link3" , child = "Link4" , type = "revolute", position = [x, y, z])
-
-    # fifth link - relative coordinates
-    length, width, height = 1, 1, 1
-    x,y, z = 0,0.5,0
-    pyrosim.Send_Cube(name="Link4", pos=[x, y, z] , size=[length, width, height]  )
-
+    x,y, z = -0.5,0,-0.5
+    pyrosim.Send_Cube(name="Frontleg", pos=[x, y, z] , size=[length, width, height]  )
+    
     pyrosim.End()
 
 
