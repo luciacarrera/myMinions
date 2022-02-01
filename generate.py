@@ -45,6 +45,15 @@ def Create_Robot():
     x,y, z = 0,0.5,0
     pyrosim.Send_Cube(name="Link3", pos=[x, y, z] , size=[length, width, height]  )
 
+    # fourth joint - relative coordinates
+    x, y, z = 0,1,0
+    pyrosim.Send_Joint( name = "Link3_Link4" , parent= "Link3" , child = "Link4" , type = "revolute", position = [x, y, z])
+
+    # fifth link - relative coordinates
+    length, width, height = 1, 1, 1
+    x,y, z = 0,0.5,0
+    pyrosim.Send_Cube(name="Link4", pos=[x, y, z] , size=[length, width, height]  )
+
     pyrosim.End()
 
 
