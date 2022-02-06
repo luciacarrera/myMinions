@@ -3,8 +3,9 @@ import matplotlib.pyplot as plt
 
 
 backLegSensorValues = numpy.load("data/backLegSensorValues.npy")
-plt.plot(backLegSensorValues)
+plt.plot(backLegSensorValues, label = "Backleg", linewidth = 3)
 
 frontLegSensorValues = numpy.load("data/frontLegSensorValues.npy")
-plt.plot(frontLegSensorValues)
+plt.plot(frontLegSensorValues, label = "Frontleg", linewidth = 1)
+plt.legend()
 plt.show()
