@@ -33,11 +33,7 @@ for i in range(0,101):
     numpy.save('data/frontLegSensorValues.npy',frontLegSensorValues)
 
     # motors
-    
-
-    pyrosim.Set_Motor_For_Joint(bodyIndex = robot, jointName = "Torso_Backleg", controlMode = p.POSITION_CONTROL, targetPosition = ...,
-
-    maxForce = ...)
+    pyrosim.Set_Motor_For_Joint(bodyIndex = robot, jointName = "Torso_Backleg", controlMode = p.POSITION_CONTROL, targetPosition = 0.0, maxForce = 500)
 
 
 p.disconnect()
