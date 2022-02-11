@@ -16,10 +16,10 @@ p.loadSDF("world.sdf")
 pyrosim.Prepare_To_Simulate(robotId)
 
 # numpy vector to store sensor values
-backLegSensorValues = numpy.zeros(100)
-frontLegSensorValues = numpy.zeros(100)
+backLegSensorValues = numpy.zeros(1000)
+frontLegSensorValues = numpy.zeros(1000)
 
-for i in range(0,101):
+for i in range(0,1000):
     t.sleep(1/60)
     p.stepSimulation()
     
@@ -33,7 +33,7 @@ for i in range(0,101):
     numpy.save('data/frontLegSensorValues.npy',frontLegSensorValues)
 
     # motors
-    pyrosim.Set_Motor_For_Joint(bodyIndex = robot, jointName = "Torso_Backleg", controlMode = p.POSITION_CONTROL, targetPosition = 0.0, maxForce = 500)
+    pyrosim.Set_Motor_For_Joint(bodyIndex = robotId, jointName = "Torso_Backleg", controlMode = p.POSITION_CONTROL, targetPosition = 0.0, maxForce = 500)
 
 
 p.disconnect()
