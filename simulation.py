@@ -4,6 +4,8 @@ import pybullet as p
 import time as t
 import numpy as numpy
 
+PI = numpy.pi
+
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
 p.setGravity(0,0,-9.8)
@@ -32,8 +34,10 @@ for i in range(0,1000):
     frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("Frontleg")
     numpy.save('data/frontLegSensorValues.npy',frontLegSensorValues)
 
-    # motors
-    pyrosim.Set_Motor_For_Joint(bodyIndex = robotId, jointName = "Torso_Backleg", controlMode = p.POSITION_CONTROL, targetPosition = 0.0, maxForce = 500)
+    # motor backleg
+    pyrosim.Set_Motor_For_Joint(bodyIndex = robotId, jointName = "Torso_Backleg", controlMode = p.POSITION_CONTROL, targetPosition = +PI/4, maxForce = 500)
+    # motor frontleg
+    pyrosim.Set_Motor_For_Joint(bodyIndex = robotId, jointName = "Torso_Frontleg", controlMode = p.POSITION_CONTROL, targetPosition = -PI/4, maxForce = 500)
 
 
 p.disconnect()
