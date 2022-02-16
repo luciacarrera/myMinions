@@ -28,9 +28,9 @@ class SIMULATION:
     def Run(self):
         for i in range(0,c.ITERATIONS):
             print(i)
-    '''    t.sleep(1/60.0)
+        t.sleep(1/60.0)
         p.stepSimulation()
-
+'''    
         # sin stuff
         posBackLeg = c.amplitudeFL * numpy.sin(c.frequencyFL * i + c.phaseOffsetFL)
         posFrontLeg = c.amplitudeBL * numpy.sin(c.frequencyBL * i + c.phaseOffsetBL)
