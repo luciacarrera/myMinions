@@ -1,4 +1,6 @@
-pass
+from simulation import SIMULATION
+simulate = SIMULATION()
+
 '''
 import constants as c
 import pybullet_data
