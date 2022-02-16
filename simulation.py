@@ -11,8 +11,8 @@ import pyrosim.pyrosim as pyrosim
 class SIMULATION:
     def __init__(self):
         # create world and robot
-        self.world = WORLD()
-        self.robot = ROBOT()
+        self.worldId = WORLD()
+        self.robotId = ROBOT()
 
         # set additional search path
         self.path = p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -21,7 +21,7 @@ class SIMULATION:
         self.gravity = p.setGravity(0,0, c.GRAVITY)
 
         # prepare to simulate
-        self.pyrosim.Prepare_To_Simulate(self.robotId)
+        pyrosim.Prepare_To_Simulate(self.robotId)
 
         
     

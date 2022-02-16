@@ -1,6 +1,7 @@
 from simulation import SIMULATION
 
 simulate = SIMULATION()
+simulate.Run
 
 '''
 import constants as c
