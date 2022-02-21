@@ -2,24 +2,13 @@ from simulation import SIMULATION
 
 simulation = SIMULATION()
 '''
-import pybullet_data
-import pyrosim.pyrosim as pyrosim
-import pybullet as p
 import time as t
 import numpy as numpy
 import random
 import constants as c
 
-physicsClient = p.connect(p.GUI)
-p.setAdditionalSearchPath(pybullet_data.getDataPath())
-p.setGravity(0,0,c.gravity)
-planeId = p.loadURDF("plane.urdf")
 robotId = p.loadURDF("body.urdf")
 
-p.loadSDF("world.sdf")
-
-# prepares sensors
-pyrosim.Prepare_To_Simulate(robotId)
 
 # numpy vector to store sensor values
 backLegSensorValues = numpy.zeros(c.ITERATIONS)
