@@ -4,25 +4,36 @@ import constants as c
 import pybullet as p
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
+import time as t
+
 
 class SIMULATION:
 
     # the constructor
     def __init__(self):
-        
-        physicsClient = p.connect(p.GUI)
+        print("---------------\n\n")
+        self.physicsClient = p.connect(p.GUI)
+        print("---------------\n\n")
+
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
+        print("---------------\n\n")
+
         p.setGravity(0,0,c.gravity)
 
-        self.robot = ROBOT()
-        self.world = WORLD()
 
-        
+        self.robot = ROBOT()
+
+        self.world = WORLD()
+        print("HERE")
         # prepares sensors
+
         #pyrosim.Prepare_To_Simulate(self.robot)
 
+
+        
+
     def Run():
-        print("here")
+        print("\n\n HHH \n\n")
         for i in range(0,c.ITERATIONS):
             print(i)
             

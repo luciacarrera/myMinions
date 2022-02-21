@@ -7,7 +7,6 @@ print("aqui 2")
 simulation.Run
 print("PART·")
 '''
-import time as t
 import numpy as numpy
 import random
 import constants as c
