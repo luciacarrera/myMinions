@@ -32,7 +32,7 @@ class SIMULATION:
 
         
 
-    def Run():
+    def Run(self):
         print("\n\n HHH \n\n")
         for i in range(0,c.ITERATIONS):
             print(i)

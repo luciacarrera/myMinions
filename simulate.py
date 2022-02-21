@@ -4,7 +4,7 @@ print("aqui")
 simulation = SIMULATION()
 print("aqui 2")
 
-simulation.Run
+simulation.Run()
 print("PART·")
 '''
 import numpy as numpy
