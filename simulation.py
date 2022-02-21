@@ -17,18 +17,10 @@ class SIMULATION:
 
         p.setGravity(0,0,c.gravity)
 
-
+        self.world = WORLD()
         self.robot = ROBOT()
 
-        self.world = WORLD()
-        print("HERE")
-        # prepares sensors
-
-        #pyrosim.Prepare_To_Simulate(self.robot)
-
-
         
-
     def Run(self):
         print("\n\n HHH \n\n")
         for i in range(0,c.ITERATIONS):

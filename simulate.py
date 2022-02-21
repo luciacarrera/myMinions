@@ -9,7 +9,6 @@ import numpy as numpy
 import random
 import constants as c
 
-robotId = p.loadURDF("body.urdf")
 
 
 # numpy vector to store sensor values
