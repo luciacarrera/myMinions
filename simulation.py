@@ -11,12 +11,9 @@ class SIMULATION:
 
     # the constructor
     def __init__(self):
-        print("---------------\n\n")
         self.physicsClient = p.connect(p.GUI)
-        print("---------------\n\n")
 
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
-        print("---------------\n\n")
 
         p.setGravity(0,0,c.gravity)
 
@@ -39,7 +36,7 @@ class SIMULATION:
             
             t.sleep(c.sleepingTime)
             p.stepSimulation()
-'''
+            '''
             # sin stuff
             posBackLeg = c.amplitudeFL * numpy.sin(c.frequencyFL * i + c.phaseOffsetFL)
             posFrontLeg = c.amplitudeBL * numpy.sin(c.frequencyBL * i + c.phaseOffsetBL)
@@ -59,5 +56,5 @@ class SIMULATION:
             pyrosim.Set_Motor_For_Joint(bodyIndex = robotId, jointName = "Torso_Frontleg", controlMode = p.POSITION_CONTROL, targetPosition= posFrontLeg, maxForce = c.force)
             '''
 
-
-                
+    def __del__(self):
+        p.disconnect()
