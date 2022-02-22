@@ -22,8 +22,8 @@ class SIMULATION:
 
         
     def Run(self):
-        print("\n\n HHH \n\n")
         for i in range(0,c.ITERATIONS):
+            print(i)
             
             t.sleep(c.sleepingTime)
             p.stepSimulation()

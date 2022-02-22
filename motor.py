@@ -1,9 +1,7 @@
-from random import randint
 import pyrosim.pyrosim as pyrosim
 import constants as c
 import numpy
 import pybullet as p
-import pybullet_data
 
 
 class MOTOR:
@@ -15,9 +13,15 @@ class MOTOR:
 
     
     def Prepare_To_Act(self):
-        self.amplitude = c.amplitudeBL
-        self.frequency = c.frequencyBL
-        self.offset = c.phaseOffsetBL
+        self.amplitude = c.amplitude
+        self.offset = c.phaseOffset
+
+        if self.jointName == "Torso_Frontleg":
+            self.frequency = -c.frequency/2
+            print("\nTORSO")
+        else:
+            self.frequency = c.frequency
+
 
 
     def Set_Value(self, robotId, t):
