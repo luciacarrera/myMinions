@@ -18,3 +18,8 @@ class SENSOR:
         # if t == c.ITERATIONS -1:
         #    print(self.values)
 
+    def Save_Values(self):
+        file = 'data/'+self.linkName+'.npy'
+        numpy.save(file,self.values)
+
+
