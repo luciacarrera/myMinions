@@ -28,20 +28,13 @@ class SIMULATION:
             t.sleep(c.sleepingTime)
             p.stepSimulation()
             self.robot.Sense(i)
+            self.robot.Act()
 
             '''
             # sin stuff
-            posBackLeg = c.amplitudeFL * numpy.sin(c.frequencyFL * i + c.phaseOffsetFL)
             posFrontLeg = c.amplitudeBL * numpy.sin(c.frequencyBL * i + c.phaseOffsetBL)
 
-            # creates sensor for backleg        
-            backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("Backleg")
-            numpy.save('data/backLegSensorValues.npy',backLegSensorValues)
-
-            # creates a sensor for frontleg
-            frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("Frontleg")
-            numpy.save('data/frontLegSensorValues.npy',frontLegSensorValues)
-
+            
             # motor backleg
             pyrosim.Set_Motor_For_Joint(bodyIndex = robotId, jointName = "Torso_Backleg", controlMode = p.POSITION_CONTROL, targetPosition = posBackLeg, maxForce = c.force)
             
