@@ -1,7 +1,9 @@
+from re import T
 import pyrosim.pyrosim as pyrosim
 import pybullet as p
 import pybullet_data
 from sensor import SENSOR
+import numpy as numpy
 
 class ROBOT:
 
@@ -20,8 +22,12 @@ class ROBOT:
         self.sensors = {}
         for linkName in pyrosim.linkNamesToIndices:
             self.sensors[linkName] = SENSOR(linkName)
-            print(self.sensors[linkName].values)
 
+    def Sense(self, t):
+        # creates sensor for backleg  
+        for linkName in self.sensors:
+            self.sensors[linkName].Get_Value(t)
 
+    
 
 

@@ -27,6 +27,8 @@ class SIMULATION:
             
             t.sleep(c.sleepingTime)
             p.stepSimulation()
+            self.robot.Sense(i)
+
             '''
             # sin stuff
             posBackLeg = c.amplitudeFL * numpy.sin(c.frequencyFL * i + c.phaseOffsetFL)
