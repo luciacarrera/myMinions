@@ -28,19 +28,8 @@ class SIMULATION:
             t.sleep(c.sleepingTime)
             p.stepSimulation()
             self.robot.Sense(i)
-            self.robot.Act()
+            self.robot.Act(i)
 
-            '''
-            # sin stuff
-            posFrontLeg = c.amplitudeBL * numpy.sin(c.frequencyBL * i + c.phaseOffsetBL)
-
-            
-            # motor backleg
-            pyrosim.Set_Motor_For_Joint(bodyIndex = robotId, jointName = "Torso_Backleg", controlMode = p.POSITION_CONTROL, targetPosition = posBackLeg, maxForce = c.force)
-            
-            # motor frontleg
-            pyrosim.Set_Motor_For_Joint(bodyIndex = robotId, jointName = "Torso_Frontleg", controlMode = p.POSITION_CONTROL, targetPosition= posFrontLeg, maxForce = c.force)
-            '''
 
     def __del__(self):
         p.disconnect()

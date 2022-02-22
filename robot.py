@@ -1,4 +1,3 @@
-from re import T
 import pyrosim.pyrosim as pyrosim
 import pybullet as p
 import pybullet_data
@@ -16,6 +15,8 @@ class ROBOT:
         pyrosim.Prepare_To_Simulate(self.Id)
 
         self.Prepare_To_Sense()
+
+        self.Prepare_To_Act()
         
 
     def Prepare_To_Sense(self):
@@ -24,7 +25,6 @@ class ROBOT:
             self.sensors[linkName] = SENSOR(linkName)
 
     def Sense(self, t):
-        # creates sensor for backleg  
         for linkName in self.sensors:
             self.sensors[linkName].Get_Value(t)
 
@@ -33,7 +33,8 @@ class ROBOT:
         for jointName in pyrosim.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName)
 
-    def Act():
-        pass
+    def Act(self, t):
+        for jointName in self.motors:
+            self.motors[jointName].Set_Value(self.Id, t) 
 
 

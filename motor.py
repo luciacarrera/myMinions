@@ -1,6 +1,9 @@
+from random import randint
 import pyrosim.pyrosim as pyrosim
 import constants as c
 import numpy
+import pybullet as p
+import pybullet_data
 
 
 class MOTOR:
@@ -16,9 +19,11 @@ class MOTOR:
         self.frequency = c.frequencyBL
         self.offset = c.phaseOffsetBL
 
-        self.posJoint = self.amplitude * numpy.sin(self.frequency * i + self.offset)
 
+    def Set_Value(self, robotId, t):
+
+        self.posJoint = self.amplitude * numpy.sin(self.frequency * t + self.offset)
         motorValues01 = numpy.linspace(c.startingValue, c.stoppingValue, c.ITERATIONS)
         self.motorValues =  numpy.sin(motorValues01)
-
-        # pyrosim.Set_Motor_For_Joint(bodyIndex = robot, jointName = "Torso_Backleg", controlMode = p.POSITION_CONTROL, targetPosition = posBackLeg, maxForce = c.force)
+        
+        pyrosim.Set_Motor_For_Joint(bodyIndex = robotId, jointName = self.jointName, controlMode = p.POSITION_CONTROL, targetPosition = self.motorValues[t], maxForce = c.force)
