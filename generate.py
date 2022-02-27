@@ -46,7 +46,7 @@ def Generate_Brain():
     pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "Frontleg")
     
     pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_Backleg")
-    pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_Frontleg")
+    pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_Frontleg")
 
     pyrosim.End()
 
