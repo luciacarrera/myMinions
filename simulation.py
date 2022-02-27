@@ -23,7 +23,7 @@ class SIMULATION:
         
     def Run(self):
         for i in range(0,c.ITERATIONS):
-            print(i)
+            #print(i)
             
             t.sleep(c.sleepingTime)
             p.stepSimulation()
