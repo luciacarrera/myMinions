@@ -4,6 +4,8 @@ import pybullet_data
 from sensor import SENSOR
 from motor import MOTOR
 import numpy as numpy
+from pyrosim.neuralNetwork import NEURAL_NETWORK
+
 
 class ROBOT:
 
@@ -17,6 +19,9 @@ class ROBOT:
         self.Prepare_To_Sense()
 
         self.Prepare_To_Act()
+
+        # creates a neural netrwork
+        self.nn = NEURAL_NETWORK("brain.nndf")
         
 
     def Prepare_To_Sense(self):
@@ -36,5 +41,10 @@ class ROBOT:
     def Act(self, t):
         for jointName in self.motors:
             self.motors[jointName].Set_Value(self.Id, t) 
+
+
+    def Think(self):
+        self.nn.Print()
+
 
 

@@ -28,8 +28,10 @@ class SIMULATION:
             t.sleep(c.sleepingTime)
             p.stepSimulation()
             self.robot.Sense(i)
+            self.robot.Think()
             self.robot.Act(i)
 
 
     def __del__(self):
         p.disconnect()
+
