@@ -9,7 +9,7 @@ phaseOffset = 1
 
 sleepingTime = 1/60.0
 force = 5000
-gravity = -10
+gravity = -180
 
 startingValue = -PI
 stoppingValue = PI
