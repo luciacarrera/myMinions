@@ -48,17 +48,6 @@ def Generate_Brain():
     
     pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_Backleg")
     pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_Frontleg")
-    
-    '''# synapses to motor neuron 1
-    pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 3 , weight = 1.0 )
-    pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 3 , weight = 13.0 )
-    pyrosim.Send_Synapse( sourceNeuronName = 2 , targetNeuronName = 3 , weight = 1.0 )
-
-    # synapses to motor neuron 2
-    pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 4 , weight = 100000.0 )
-    pyrosim.Send_Synapse( sourceNeuronName = 1 , targetNeuronName = 4 , weight = 15.0 )
-    pyrosim.Send_Synapse( sourceNeuronName = 2 , targetNeuronName = 4 , weight = 13.0 )
-    '''
 
     # generate synapses
     # iterate over sensor neurons
@@ -68,7 +57,7 @@ def Generate_Brain():
             weight = random.uniform(-1,1)
             print("weight", weight)
             pyrosim.Send_Synapse(sourceNeuronName=i, targetNeuronName=j,weight = weight)
-#random.uniform
+            
     pyrosim.End()
 
 Create_World()
