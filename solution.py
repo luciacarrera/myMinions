@@ -6,5 +6,5 @@ class SOLUTION:
         ROWS = 3
         COLUMNS = 2
         self.weights =  numpy.random.rand(ROWS,COLUMNS)
-        print(self.weights)
-        exit()
+        self.weights = self.weights * 2 - 1
+
