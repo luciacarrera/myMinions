@@ -86,7 +86,7 @@ class NEURON:
 
     def Allow_Presynaptic_Neuron_To_Influence_Me(self, current_synapse_weight, pre_neuron_value):
         result = pre_neuron_value * current_synapse_weight
-        print("values",pre_neuron_value, current_synapse_weight)
+        #print("values",pre_neuron_value, current_synapse_weight)
         self.Add_To_Value(result)
 
 # -------------------------- Private methods -------------------------
