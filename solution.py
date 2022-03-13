@@ -18,6 +18,11 @@ class SOLUTION:
         self.Generate_Body()
 
         os.system("python3 simulate.py")
+
+        # read fitness
+        fitnessFile = open("fitness.txt", "r")
+        self.fitness = float(fitnessFile.readline())
+        fitnessFile.close()
     
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
