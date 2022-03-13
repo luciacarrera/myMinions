@@ -7,9 +7,9 @@ import os
 class SOLUTION:
 
     def __init__(self):
-        ROWS = 3
-        COLUMNS = 2
-        self.weights =  numpy.random.rand(ROWS,COLUMNS)
+        self.ROWS = 3
+        self.COLUMNS = 2
+        self.weights =  numpy.random.rand(self.ROWS,self.COLUMNS)
         self.weights = self.weights * 2 - 1
 
     def Evaluate(self):
@@ -80,5 +80,11 @@ class SOLUTION:
                 pyrosim.Send_Synapse(sourceNeuronName= currentRow, targetNeuronName=currentColumn + 3,weight = self.weights[currentRow][currentColumn])
                 
         pyrosim.End()
+
+    def Mutate(self):
+        chosenRow = random.randint(0,self.ROWS - 1)
+        chosenColumn = random.randint(0,self.COLUMNS - 1)
+        self.weights[chosenRow, chosenColumn] = random.random() * 2 - 1
+
 
 
