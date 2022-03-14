@@ -11,7 +11,8 @@ class SIMULATION:
 
     # the constructor
     def __init__(self):
-        self.physicsClient = p.connect(p.GUI)
+        # "blind" mode (p.DIRECT) or "heads-up" mode (p.GUI)
+        self.physicsClient = p.connect(p.DIRECT)
 
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 

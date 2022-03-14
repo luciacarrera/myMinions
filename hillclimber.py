@@ -11,14 +11,15 @@ class HILLCLIMBER:
         self.parent.Evaluate() 
 
         # current Generation loop
-        #for currentGeneration in c.numberOfGenerations:
-        self.Evolve_For_One_Generation()
+        for currentGeneration in range(0,c.numberOfGenerations):
+            self.Evolve_For_One_Generation()
 
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
         self.Mutate()
         self.child.Evaluate()
+        print(self.parent.fitness, self.child.fitness, "\n")
         self.Select()
     
     def Spawn(self):
@@ -33,3 +34,4 @@ class HILLCLIMBER:
         # if child has better fitness than parent, it dethrones them
         if self.parent.fitness < self.child.fitness :
             self.parent.fitness = self.child.fitness
+        
