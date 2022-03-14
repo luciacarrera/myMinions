@@ -27,8 +27,9 @@ class HILLCLIMBER:
 
     def Mutate(self):
         self.child.Mutate()
-        
-
+    
 
     def Select(self):
-        pass
+        # if child has better fitness than parent, it dethrones them
+        if self.parent.fitness < self.child.fitness :
+            self.parent.fitness = self.child.fitness
