@@ -1,6 +1,7 @@
 from solution import SOLUTION
 import constants as c
 import copy
+import sys
 
 class HILLCLIMBER:
 
@@ -8,7 +9,8 @@ class HILLCLIMBER:
         self.parent = SOLUTION()
 
     def Evolve(self):
-        self.parent.Evaluate() 
+        directOrGui = sys.argv[1]
+        self.parent.Evaluate(directOrGui) 
 
         # current Generation loop
         for currentGeneration in range(0,c.numberOfGenerations):

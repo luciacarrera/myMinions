@@ -10,9 +10,12 @@ import time as t
 class SIMULATION:
 
     # the constructor
-    def __init__(self):
+    def __init__(self, directOrGui):
         # "blind" mode (p.DIRECT) or "heads-up" mode (p.GUI)
-        self.physicsClient = p.connect(p.DIRECT)
+        if directOrGui == "DIRECT":
+            self.physicsClient = p.connect(p.DIRECT)
+        else:
+            self.physicsClient = p.connect(p.GUI)
 
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
