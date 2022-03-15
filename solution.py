@@ -12,15 +12,15 @@ class SOLUTION:
         self.weights =  numpy.random.rand(self.ROWS,self.COLUMNS)
         self.weights = self.weights * 2 - 1
 
-    def Evaluate(self, directOrGui):
+    def Evaluate(self,directOrGui):
         self.Create_World()
         self.Generate_Brain()
         self.Generate_Body()
         if directOrGui == "DIRECT":
             os.system("python3 simulate.py DIRECT")
-        else: 
+        else:
             os.system("python3 simulate.py GUI")
-
+        
 
         # read fitness
         fitnessFile = open("fitness.txt", "r")

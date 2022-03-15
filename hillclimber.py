@@ -9,8 +9,8 @@ class HILLCLIMBER:
         self.parent = SOLUTION()
 
     def Evolve(self):
-        directOrGui = sys.argv[1]
-        self.parent.Evaluate(directOrGui) 
+        #directOrGui = sys.argv[1]
+        self.parent.Evaluate("DIRECT") 
 
         # current Generation loop
         for currentGeneration in range(0,c.numberOfGenerations):
@@ -20,8 +20,8 @@ class HILLCLIMBER:
     def Evolve_For_One_Generation(self):
         self.Spawn()
         self.Mutate()
-        self.child.Evaluate()
-        print(self.parent.fitness, self.child.fitness, "\n")
+        self.child.Evaluate("DIRECT")
+        print("\n\nFITNESS\nParent:",self.parent.fitness,"Child:", self.child.fitness, "\n")
         self.Select()
     
     def Spawn(self):
@@ -34,6 +34,9 @@ class HILLCLIMBER:
 
     def Select(self):
         # if child has better fitness than parent, it dethrones them
-        if self.parent.fitness < self.child.fitness :
+        if self.parent.fitness > self.child.fitness :
             self.parent.fitness = self.child.fitness
-        
+
+    #  re-evaluates the parent with graphics turned on.
+    def Show_Best(self):
+        self.parent.Evaluate("GUI")
