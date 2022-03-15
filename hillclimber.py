@@ -35,7 +35,7 @@ class HILLCLIMBER:
     def Select(self):
         # if child has better fitness than parent, it dethrones them
         if self.parent.fitness > self.child.fitness :
-            self.parent.fitness = self.child.fitness
+            self.parent = self.child
 
     #  re-evaluates the parent with graphics turned on.
     def Show_Best(self):
