@@ -1,3 +1,4 @@
+import os
 import pyrosim.pyrosim as pyrosim
 import pybullet as p
 import pybullet_data
@@ -9,7 +10,7 @@ from pyrosim.neuralNetwork import NEURAL_NETWORK
 
 class ROBOT:
 
-    def __init__(self):
+    def __init__(self, solutionID):
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         self.Id = p.loadURDF("body.urdf")
@@ -20,8 +21,11 @@ class ROBOT:
 
         self.Prepare_To_Act()
 
+        solutionID = str(solutionID)
         # creates a neural netrwork
-        self.nn = NEURAL_NETWORK("brain.nndf")
+        nnFile = "brain" + solutionID + ".nndf"
+        self.nn = NEURAL_NETWORK(nnFile)
+        os.system("del " + nnFile)
         
 
     def Prepare_To_Sense(self):
