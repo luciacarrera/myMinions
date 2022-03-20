@@ -6,11 +6,12 @@ import os
 
 class SOLUTION:
 
-    def __init__(self):
+    def __init__(self, myID):
         self.ROWS = 3
         self.COLUMNS = 2
         self.weights =  numpy.random.rand(self.ROWS,self.COLUMNS)
         self.weights = self.weights * 2 - 1
+        self.myID = myID
 
     def Evaluate(self,directOrGui):
         self.Create_World()
@@ -86,5 +87,6 @@ class SOLUTION:
         chosenColumn = random.randint(0,self.COLUMNS - 1)
         self.weights[chosenRow, chosenColumn] = random.random() * 2 - 1
 
-
+    def SET_ID(self):
+        pass
 
