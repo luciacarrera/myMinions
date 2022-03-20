@@ -16,10 +16,7 @@ class SOLUTION:
         self.Create_World()
         self.Generate_Brain()
         self.Generate_Body()
-        if directOrGui == "DIRECT":
-            os.system("python3 simulate.py DIRECT")
-        else:
-            os.system("python3 simulate.py GUI")
+        os.system("start /B python3 simulate.py " + directOrGui )
         
 
         # read fitness
