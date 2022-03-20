@@ -6,12 +6,16 @@ import sys
 class PARALLEL_HILLCLIMBER:
 
     def __init__(self):
-        self.parent = SOLUTION()
+        self.parents = {}
+        for i in range(0, c.populationSize):
+            self.parents[i] = SOLUTION()
 
     def Evolve(self):
         #directOrGui = sys.argv[1]
-        self.parent.Evaluate("DIRECT") 
+        for i in range(0, c.populationSize):
+            self.parents[i].Evaluate("GUI") 
 
+    '''
         # current Generation loop
         for currentGeneration in range(0,c.numberOfGenerations):
             self.Evolve_For_One_Generation()
@@ -39,4 +43,4 @@ class PARALLEL_HILLCLIMBER:
 
     #  re-evaluates the parent with graphics turned on.
     def Show_Best(self):
-        self.parent.Evaluate("GUI")
+        self.parent.Evaluate("GUI")'''
