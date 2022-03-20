@@ -11,6 +11,9 @@ class SIMULATION:
 
     # the constructor
     def __init__(self, directOrGui):
+        
+        self.directOrGui = directOrGui
+
         # "blind" mode (p.DIRECT) or "heads-up" mode (p.GUI)
         if directOrGui == "DIRECT":
             self.physicsClient = p.connect(p.DIRECT)

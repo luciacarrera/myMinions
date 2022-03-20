@@ -1,5 +1,5 @@
 import os
-from hillclimber import HILLCLIMBER
+from parallelhc import PARALLEL_HILLCLIMBER
 
 '''
 for i in range(0,5):
