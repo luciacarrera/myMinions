@@ -11,15 +11,14 @@ class SOLUTION:
         self.COLUMNS = 2
         self.weights =  numpy.random.rand(self.ROWS,self.COLUMNS)
         self.weights = self.weights * 2 - 1
-        self.myID = myID
+        self.myID = str(myID)
 
     def Evaluate(self,directOrGui):
         self.Create_World()
         self.Generate_Brain()
         self.Generate_Body()
-        os.system("start /B python3 simulate.py " + directOrGui )
+        os.system("start /B python3 simulate.py " + directOrGui + " " + self.myID)
         
-
         # read fitness
         fitnessFile = open("fitness.txt", "r")
         self.fitness = float(fitnessFile.readline())
