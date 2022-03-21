@@ -21,7 +21,7 @@ class ROBOT:
 
         self.Prepare_To_Act()
 
-        solutionID = str(solutionID)
+        self.solutionID = str(solutionID)
         # creates a neural netrwork
         nnFile = "brain" + solutionID + ".nndf"
         self.nn = NEURAL_NETWORK(nnFile)
@@ -61,6 +61,13 @@ class ROBOT:
         xCoordinateOfLinkZero = positionOfLinkZero[0]
         
         # write coordinate in file
-        fitnessFile = open("fitness.txt", "w")
+        tmpFileName = "temp" + self.solutionID + ".txt"
+        fitnessFileName = "fitness" + self.solutionID + ".txt"
+        fitnessFile = open(tmpFileName, "w")
         fitnessFile.write(str(xCoordinateOfLinkZero))
         fitnessFile.close()
+
+        print("\n\n")
+        command = "rename " + tmpFileName + " " + fitnessFileName
+        print(command)
+        os.system(command)

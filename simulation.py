@@ -13,6 +13,7 @@ class SIMULATION:
     def __init__(self, directOrGui, solutionID):
         
         self.directOrGui = directOrGui
+        self.solutionID = solutionID
 
         # "blind" mode (p.DIRECT) or "heads-up" mode (p.GUI)
         if directOrGui == "DIRECT":
@@ -25,7 +26,7 @@ class SIMULATION:
         p.setGravity(0,0,c.gravity)
 
         self.world = WORLD()
-        self.robot = ROBOT(solutionID)
+        self.robot = ROBOT(self.solutionID)
 
         
     def Run(self):

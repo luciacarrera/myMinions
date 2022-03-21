@@ -1,3 +1,4 @@
+import time
 import numpy
 import pyrosim.pyrosim as pyrosim
 import random
@@ -20,9 +21,21 @@ class SOLUTION:
         os.system("start /B python3 simulate.py " + directOrGui + " " + self.myID)
         
         # read fitness
-        fitnessFile = open("fitness.txt", "r")
+        fitnessFileName = "fitness" + self.myID + ".txt"
+
+        while not os.path.exists(fitnessFileName):
+            time.sleep(0.01)
+
+        fitnessFile = open(fitnessFileName, "r")
         self.fitness = float(fitnessFile.readline())
+        print(self.fitness)
         fitnessFile.close()
+
+    def Start_Simulation():
+        pass
+
+    def Wait_For_Simulation_To_End():
+        pass
     
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")

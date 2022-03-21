@@ -1,7 +1,7 @@
 import numpy 
 
 PI = numpy.pi
-ITERATIONS = 1000
+ITERATIONS = 100
 
 amplitude = +PI/4
 frequency = 1/40
