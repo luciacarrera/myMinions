@@ -14,6 +14,6 @@ gravity = -180
 startingValue = -PI
 stoppingValue = PI
 
-numberOfGenerations = 10
+numberOfGenerations = 2
 
 populationSize = 2

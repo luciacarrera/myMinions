@@ -9,9 +9,8 @@ class PARALLEL_HILLCLIMBER:
         self.nextAvailableID = 0
 
         self.parents = {}
-        self.children = {}
 
-        for i in range(0, c.populationSize):
+        for i in range(0,c.populationSize):
             self.parents[i] = SOLUTION(self.nextAvailableID)
             self.parents[i].SET_ID(self.nextAvailableID)
             self.nextAvailableID += 1
@@ -20,13 +19,7 @@ class PARALLEL_HILLCLIMBER:
 
 
     def Evolve(self):
-        #directOrGui = sys.argv[1]
-        for i in range(0, c.populationSize):
-            self.parents[i].Start_Simulation("GUI") 
-
-        for i in range(0, c.populationSize):
-            self.parents[i].Wait_For_Simulation_To_End()
-            
+        self.Evaluate(self.parents)
         # current Generation loop
         for currentGeneration in range(0,c.numberOfGenerations):
             self.Evolve_For_One_Generation()
@@ -35,22 +28,28 @@ class PARALLEL_HILLCLIMBER:
     def Evolve_For_One_Generation(self):
         self.Spawn()
         self.Mutate() 
+               
+        self.Evaluate(self.children)
+        exit()
+        
         '''
-        self.child.Evaluate("DIRECT")
         print("\n\nFITNESS\nParent:",self.parent.fitness,"Child:", self.child.fitness, "\n")
         self.Select()
         '''
         
     def Spawn(self):
-        for i in range(0,c.populationSize):
-            self.children[i] = copy.deepcopy(self.parents[i])
-            self.children[i].SET_ID(self.nextAvailableID)
+        self.children = {}
+        for key in self.parents:
+            self.children[key] = copy.deepcopy(self.parents[key])
+            self.children[key].SET_ID(self.nextAvailableID)
             self.nextAvailableID += 1
             
 
     def Mutate(self):
-        for i in range(0,c.populationSize)
-            self.children[i].Mutate()
+        print("\n::::::::::::::::MUTATE")
+
+        for key in self.parents:
+            self.children[key].Mutate()
     
 
     def Select(self):
@@ -61,3 +60,14 @@ class PARALLEL_HILLCLIMBER:
     #  re-evaluates the parent with graphics turned on.
     def Show_Best(self):
         self.parent.Evaluate("GUI")
+    
+    def Evaluate(self, solutions):
+        #directOrGui = sys.argv[1]
+        for key in solutions:
+            solutions[key].Start_Simulation("GUI") 
+
+        for key in solutions:
+            solutions[key].Wait_For_Simulation_To_End()
+            
+        
+        
