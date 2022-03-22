@@ -55,7 +55,14 @@ class PARALLEL_HILLCLIMBER:
 
     #  re-evaluates the parent with graphics turned on.
     def Show_Best(self):
-        self.parent.Evaluate("GUI")
+        best_parent = 0
+        lowest_fitness = 1000000
+        for key in self.parents:
+            if self.parents[key].fitness < lowest_fitness:
+                best_parent = key
+                lowest_fitness = self.parents[key].fitness 
+
+        self.parents[best_parent].Start_Simulation("GUI")
     
     def Evaluate(self, solutions):
         #directOrGui = sys.argv[1]

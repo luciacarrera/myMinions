@@ -1,7 +1,7 @@
 import numpy 
 
 PI = numpy.pi
-ITERATIONS = 100
+ITERATIONS = 1000
 
 amplitude = +PI/4
 frequency = 1/40
@@ -14,6 +14,6 @@ gravity = -180
 startingValue = -PI
 stoppingValue = PI
 
-numberOfGenerations = 2
+numberOfGenerations = 10
 
-populationSize = 2
+populationSize = 10

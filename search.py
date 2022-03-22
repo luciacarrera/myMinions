@@ -6,7 +6,11 @@ os.system("del fitness*.nndf")
 
 phc = PARALLEL_HILLCLIMBER()
 phc.Evolve()
+phc.Show_Best()
 
-'''phc.Show_Best()
+
+
+
+'''
 phc.Evolve()
 phc.Show_Best()'''
