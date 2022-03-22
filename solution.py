@@ -14,12 +14,14 @@ class SOLUTION:
         self.weights = self.weights * 2 - 1
         self.myID = str(myID)
 
-    def Evaluate(self,directOrGui):
+    def Start_Simulation(self,directOrGui):
         self.Create_World()
         self.Generate_Brain()
         self.Generate_Body()
         os.system("start /B python3 simulate.py " + directOrGui + " " + self.myID)
         
+
+    def Wait_For_Simulation_To_End(self):
         # read fitness
         fitnessFileName = "fitness" + self.myID + ".txt"
 
@@ -28,15 +30,10 @@ class SOLUTION:
 
         fitnessFile = open(fitnessFileName, "r")
         self.fitness = float(fitnessFile.readline())
-        print(self.fitness)
+        #print(self.fitness)
         fitnessFile.close()
+        os.system("del "+ fitnessFileName)
 
-    def Start_Simulation():
-        pass
-
-    def Wait_For_Simulation_To_End():
-        pass
-    
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
 
