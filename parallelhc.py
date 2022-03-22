@@ -27,16 +27,12 @@ class PARALLEL_HILLCLIMBER:
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
-        self.Mutate() 
-               
+        self.Mutate()    
         self.Evaluate(self.children)
         self.Print()
         #exit()
-        
-        '''
-        print("\n\nFITNESS\nParent:",self.parent.fitness,"Child:", self.child.fitness, "\n")
         self.Select()
-        '''
+    
         
     def Spawn(self):
         self.children = {}
@@ -53,8 +49,9 @@ class PARALLEL_HILLCLIMBER:
 
     def Select(self):
         # if child has better fitness than parent, it dethrones them
-        if self.parent.fitness > self.child.fitness :
-            self.parent = self.child
+        for key in self.parents:
+            if self.parents[key].fitness > self.children[key].fitness :
+                self.parents[key] = self.children[key]
 
     #  re-evaluates the parent with graphics turned on.
     def Show_Best(self):
