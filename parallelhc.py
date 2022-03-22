@@ -30,7 +30,7 @@ class PARALLEL_HILLCLIMBER:
         self.Mutate() 
                
         self.Evaluate(self.children)
-        exit()
+        #exit()
         
         '''
         print("\n\nFITNESS\nParent:",self.parent.fitness,"Child:", self.child.fitness, "\n")
@@ -64,7 +64,7 @@ class PARALLEL_HILLCLIMBER:
     def Evaluate(self, solutions):
         #directOrGui = sys.argv[1]
         for key in solutions:
-            solutions[key].Start_Simulation("GUI") 
+            solutions[key].Start_Simulation("DIRECT") 
 
         for key in solutions:
             solutions[key].Wait_For_Simulation_To_End()
