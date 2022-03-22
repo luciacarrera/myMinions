@@ -69,5 +69,5 @@ class ROBOT:
 
         print("\n\n")
         command = "rename " + tmpFileName + " " + fitnessFileName
-        print(command)
+        #print(command)
         os.system(command)

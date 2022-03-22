@@ -19,7 +19,11 @@ class PARALLEL_HILLCLIMBER:
     def Evolve(self):
         #directOrGui = sys.argv[1]
         for i in range(0, c.populationSize):
-            self.parents[i].Evaluate("GUI") 
+            self.parents[i].Start_Simulation("GUI") 
+
+        for i in range(0, c.populationSize):
+            self.parents[i].Wait_For_Simulation_To_End()
+            
 
     '''
         # current Generation loop

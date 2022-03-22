@@ -40,7 +40,6 @@ class SIMULATION:
             self.robot.Think()
             self.robot.Act(i)
 
-
     def __del__(self):
         p.disconnect()
 
