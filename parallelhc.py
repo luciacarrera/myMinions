@@ -9,8 +9,11 @@ class PARALLEL_HILLCLIMBER:
         self.nextAvailableID = 0
 
         self.parents = {}
+        self.children = {}
+
         for i in range(0, c.populationSize):
             self.parents[i] = SOLUTION(self.nextAvailableID)
+            self.parents[i].SET_ID(self.nextAvailableID)
             self.nextAvailableID += 1
         
         print(self.nextAvailableID)
@@ -24,8 +27,6 @@ class PARALLEL_HILLCLIMBER:
         for i in range(0, c.populationSize):
             self.parents[i].Wait_For_Simulation_To_End()
             
-
-    '''
         # current Generation loop
         for currentGeneration in range(0,c.numberOfGenerations):
             self.Evolve_For_One_Generation()
@@ -33,19 +34,23 @@ class PARALLEL_HILLCLIMBER:
 
     def Evolve_For_One_Generation(self):
         self.Spawn()
-        self.Mutate()
+        self.Mutate() 
+        '''
         self.child.Evaluate("DIRECT")
         print("\n\nFITNESS\nParent:",self.parent.fitness,"Child:", self.child.fitness, "\n")
         self.Select()
-    
+        '''
+        
     def Spawn(self):
-        self.child = copy.deepcopy(self.parent)
-        # set id
-        # +1 to next id
-
+        for i in range(0,c.populationSize):
+            self.children[i] = copy.deepcopy(self.parents[i])
+            self.children[i].SET_ID(self.nextAvailableID)
+            self.nextAvailableID += 1
+            
 
     def Mutate(self):
-        self.child.Mutate()
+        for i in range(0,c.populationSize)
+            self.children[i].Mutate()
     
 
     def Select(self):
@@ -55,4 +60,4 @@ class PARALLEL_HILLCLIMBER:
 
     #  re-evaluates the parent with graphics turned on.
     def Show_Best(self):
-        self.parent.Evaluate("GUI")'''
+        self.parent.Evaluate("GUI")

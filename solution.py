@@ -12,7 +12,7 @@ class SOLUTION:
         self.COLUMNS = 2
         self.weights =  numpy.random.rand(self.ROWS,self.COLUMNS)
         self.weights = self.weights * 2 - 1
-        self.myID = str(myID)
+        #self.myID = str(myID)
 
     def Start_Simulation(self,directOrGui):
         self.Create_World()
@@ -96,6 +96,6 @@ class SOLUTION:
         chosenColumn = random.randint(0,self.COLUMNS - 1)
         self.weights[chosenRow, chosenColumn] = random.random() * 2 - 1
 
-    def SET_ID(self):
-        pass
+    def SET_ID(self, myID):
+        self.myID = str(myID)
 
