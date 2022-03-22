@@ -30,6 +30,7 @@ class PARALLEL_HILLCLIMBER:
         self.Mutate() 
                
         self.Evaluate(self.children)
+        self.Print()
         #exit()
         
         '''
@@ -46,8 +47,6 @@ class PARALLEL_HILLCLIMBER:
             
 
     def Mutate(self):
-        print("\n::::::::::::::::MUTATE")
-
         for key in self.parents:
             self.children[key].Mutate()
     
@@ -70,4 +69,6 @@ class PARALLEL_HILLCLIMBER:
             solutions[key].Wait_For_Simulation_To_End()
             
         
-        
+    def Print(self):
+        for key in self.parents:
+            print("\n\n---------FITNESS\nParent:",self.parents[key].fitness,"Child:", self.children[key].fitness, "\n")

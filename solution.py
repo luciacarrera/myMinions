@@ -33,7 +33,7 @@ class SOLUTION:
         #print(self.fitness)
         fitnessFile.close()
         os.system("del "+ fitnessFileName)
-        self.GET_FITNESS()
+        #self.GET_FITNESS()
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
