@@ -21,7 +21,7 @@ def Generate_Body():
 
     # JOINT: TORSO - Backleg (abs)
     x, y, z = 0, -0.5, 1
-    pyrosim.Send_Joint( name = "Torso_Backleg" , parent= "Torso" , child = "Backleg" , type = "revolute", position = [x,y,z])
+    pyrosim.Send_Joint( name = "Torso_Backleg" , parent= "Torso" , child = "Backleg" , type = "revolute", position = [x,y,z], jointAxis = "0 1 0")
     
     # LINK: Backleg (rel)
     length, width, height =  0.2, 1, 0.2
@@ -30,7 +30,7 @@ def Generate_Body():
     
     # JOINT: TORSO - Frontleg (abs)
     x, y, z = 0, 0.5, 1
-    pyrosim.Send_Joint( name = "Torso_Frontleg" , parent= "Torso" , child = "Frontleg" , type = "revolute", position = [x, y, z])
+    pyrosim.Send_Joint( name = "Torso_Frontleg" , parent= "Torso" , child = "Frontleg" , type = "revolute", position = [x, y, z], jointAxis = "0 1 0")
 
     # LINK: Frontleg (rel)
     length, width, height = 0.2, 1, 0.2
