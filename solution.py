@@ -70,6 +70,15 @@ class SOLUTION:
         length, width, height = 0.2, 1, 0.2
         x, y, z = 0, 0.5, 0
         pyrosim.Send_Cube(name="Frontleg", pos=[x, y, z] , size=[length, width, height]  )
+
+        # JOINT: TORSO - Leftleg (abs)
+        x, y, z = -0.5, 0, 1
+        pyrosim.Send_Joint( name = "Torso_Leftleg" , parent= "Torso" , child = "Leftleg" , type = "revolute", position = [x, y, z], jointAxis = "1 0 0")
+
+        # LINK: Leftleg (rel)
+        length, width, height = 1, 0.2, 0.2  # SIZE
+        x, y, z = -0.5, 0, 0  # POSITION
+        pyrosim.Send_Cube(name="Leftleg", pos=[x, y, z] , size=[length, width, height]  )
         
         pyrosim.End()
 
