@@ -16,7 +16,7 @@ def Generate_Body():
 
     # LINK: TORSO (abs)
     length, width, height = 1, 1, 1
-    x,y, z = 0, 0, 1+height/2
+    x,y, z = 0, 0, 1 # z used to be 1+height/2
     pyrosim.Send_Cube(name="Torso", pos=[x, y, z] , size=[length, width, height]  )
 
     # JOINT: TORSO - Backleg (abs)
@@ -55,7 +55,7 @@ def Generate_Brain():
         # iterate over motor neurons
         for j in range(3,5):
             weight = random.uniform(-1,1)
-            print("weight", weight)
+            #print("weight", weight)
             pyrosim.Send_Synapse(sourceNeuronName=i, targetNeuronName=j,weight = weight)
             
     pyrosim.End()
