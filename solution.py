@@ -3,7 +3,7 @@ import numpy
 import pyrosim.pyrosim as pyrosim
 import random
 import os
-
+import constants as c
 
 class SOLUTION:
 
@@ -85,17 +85,17 @@ class SOLUTION:
 
         # generate synapses
         # iterate over sensor neurons
-        for currentRow in range(0,3):
+        for currentRow in range(0, c.numSensorNeurons):
             # iterate over motor neurons
-            for currentColumn in range(0,2):
-                pyrosim.Send_Synapse(sourceNeuronName= currentRow, targetNeuronName=currentColumn + 3,weight = self.weights[currentRow][currentColumn])
-                
+            for currentColumn in range(0,c.numMotorNeurons):
+                pyrosim.Send_Synapse(sourceNeuronName= currentRow, targetNeuronName=currentColumn + c.numSensorNeurons,weight = self.weights[currentRow][currentColumn])
+                 
         pyrosim.End()
 
     def Mutate(self):
         chosenRow = random.randint(0,self.ROWS - 1)
         chosenColumn = random.randint(0,self.COLUMNS - 1)
-        self.weights[chosenRow, chosenColumn] = random.random() * 2 - 1
+        self.weights[chosenRow, chosenColumn] = random.random() * c.numMotorNeurons - 1 #might need to change 2 for numMotorNeurons
 
     def SET_ID(self, myID):
         self.myID = str(myID)
