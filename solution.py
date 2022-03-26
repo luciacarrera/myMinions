@@ -80,6 +80,15 @@ class SOLUTION:
         x, y, z = -0.5, 0, 0  # POSITION
         pyrosim.Send_Cube(name="Leftleg", pos=[x, y, z] , size=[length, width, height]  )
         
+        # JOINT: TORSO - RightLeg (abs)
+        x, y, z = 0.5, 0, 1
+        pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [x, y, z], jointAxis = "1 0 0")
+
+        # LINK: RightLeg (rel)
+        length, width, height = 1, 0.2, 0.2  # SIZE
+        x, y, z = 0.5, 0, 0  # POSITION
+        pyrosim.Send_Cube(name="RightLeg", pos=[x, y, z] , size=[length, width, height]  )
+        
         pyrosim.End()
 
     def Generate_Brain(self):
