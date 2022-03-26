@@ -29,18 +29,18 @@ def Generate_Body():
     pyrosim.Send_Cube(name="Backleg", pos=[x, y, z] , size=[length, width, height]  )
     
     # JOINT: TORSO - Frontleg (abs)
-    x, y, z = -0.5, 0, 1
+    x, y, z = 0, 0.5, 1
     pyrosim.Send_Joint( name = "Torso_Frontleg" , parent= "Torso" , child = "Frontleg" , type = "revolute", position = [x, y, z])
 
     # LINK: Frontleg (rel)
-    length, width, height = 1, 1, 1
-    x,y, z = -0.5,0,-0.5
+    length, width, height = 0.2,1,0.2
+    x,y, z = 0, 0.5, 0
     pyrosim.Send_Cube(name="Frontleg", pos=[x, y, z] , size=[length, width, height]  )
     
     pyrosim.End()
 
 def Generate_Brain():
-    pyrosim.Start_NeuralNetwork("brain.nndf")
+    pyrosim.Start_NeuralNetwork("brain0.nndf") # MODIFIED THIS
 
     pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
     pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "Backleg")
