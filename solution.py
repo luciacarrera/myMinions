@@ -8,9 +8,7 @@ import constants as c
 class SOLUTION:
 
     def __init__(self, myID):
-        self.ROWS = 3
-        self.COLUMNS = 2
-        self.weights =  numpy.random.rand(self.ROWS,self.COLUMNS)
+        self.weights =  numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons)
         self.weights = self.weights * 2 - 1
         #self.myID = str(myID)
 
@@ -125,13 +123,18 @@ class SOLUTION:
 
     def Generate_Brain(self):
         pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
- 
-        pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
-        pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "Backleg")
-        pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "Frontleg")
         
-        pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_Backleg")
-        pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_Frontleg")
+        linkNames = ["Torso", "Backleg", "Frontleg", "Leftleg", "Rightleg", "LowerBackleg", "LowerFrontleg", "LowerLeftleg", "LowerRightleg"]
+        jointNames = ["Torso_Backleg", "Torso_Frontleg", "Torso_Leftleg", "Torso_Rightleg", "Backleg_LowerBackleg", "Frontleg_LowerFrontleg", "Leftleg_LowerLeftleg", "Rightleg_LowerRightleg"]
+        
+        links = len(linkNames)
+        joints = len(jointNames)
+
+        for i in range(0, joints + links):
+            if i < links:
+                pyrosim.Send_Sensor_Neuron(name = i , linkName = linkNames[i])
+            else:
+                pyrosim.Send_Motor_Neuron( name = i , jointName = jointNames[i - links])
 
         # generate synapses
         # iterate over sensor neurons
@@ -143,9 +146,9 @@ class SOLUTION:
         pyrosim.End()
 
     def Mutate(self):
-        chosenRow = random.randint(0,self.ROWS - 1)
-        chosenColumn = random.randint(0,self.COLUMNS - 1)
-        self.weights[chosenRow, chosenColumn] = random.random() * c.numMotorNeurons - 1 #might need to change 2 for numMotorNeurons
+        chosenRow = random.randint(0, c.numSensorNeurons - 1)
+        chosenColumn = random.randint(0, c.numMotorNeurons - 1)
+        self.weights[chosenRow, chosenColumn] = random.random() * 2 - 1 #might need to change 2 for numMotorNeurons
 
     def SET_ID(self, myID):
         self.myID = str(myID)

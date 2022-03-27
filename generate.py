@@ -40,7 +40,7 @@ def Generate_Body():
     pyrosim.End()
 
 def Generate_Brain():
-    pyrosim.Start_NeuralNetwork("brain0.nndf") # MODIFIED THIS
+    pyrosim.Start_NeuralNetwork("brain.nndf") # MODIFIED THIS
 
     pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
     pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "Backleg")
