@@ -88,7 +88,7 @@ class SOLUTION:
         ## LEFTLEG
         # JOINT: TORSO - Leftleg (abs)
         x, y, z = -0.5, 0, 1
-        pyrosim.Send_Joint( name = "Torso_Leftleg" , parent= "Torso" , child = "Leftleg" , type = "revolute", position = [x, y, z], jointAxis = "1 0 0")
+        pyrosim.Send_Joint( name = "Torso_Leftleg" , parent= "Torso" , child = "Leftleg" , type = "revolute", position = [x, y, z], jointAxis = "0 1 0")
         # LINK: Leftleg (rel)
         length, width, height = 1, 0.2, 0.2  # SIZE
         x, y, z = -0.5, 0, 0  # POSITION
@@ -96,7 +96,7 @@ class SOLUTION:
         # LOWER LEFTLEG
         # JOINT: Leftleg - LowerLeftleg (rel)
         x, y, z = -1, 0, 0
-        pyrosim.Send_Joint( name = "Leftleg_LowerLeftleg" , parent= "Leftleg" , child = "LowerLeftleg" , type = "revolute", position = [x, y, z], jointAxis = "1 0 0")
+        pyrosim.Send_Joint( name = "Leftleg_LowerLeftleg" , parent= "Leftleg" , child = "LowerLeftleg" , type = "revolute", position = [x, y, z], jointAxis = "0 1 0")
         # LINK: LowerLeftleg (rel)
         length, width, height = 0.2, 0.2, 1
         x, y, z = 0, 0, -0.5
@@ -105,7 +105,7 @@ class SOLUTION:
         ## RIGHTLEG
         # JOINT: TORSO - RightLeg (abs)
         x, y, z = 0.5, 0, 1
-        pyrosim.Send_Joint( name = "Torso_Rightleg" , parent= "Torso" , child = "Rightleg" , type = "revolute", position = [x, y, z], jointAxis = "1 0 0")
+        pyrosim.Send_Joint( name = "Torso_Rightleg" , parent= "Torso" , child = "Rightleg" , type = "revolute", position = [x, y, z], jointAxis = "0 1 0")
         # LINK: RightLeg (rel)
         length, width, height = 1, 0.2, 0.2  # SIZE
         x, y, z = 0.5, 0, 0  # POSITION
@@ -113,7 +113,7 @@ class SOLUTION:
          # LOWER RIGHTLEG
         # JOINT: Rightleg - LowerRightleg (rel)
         x, y, z = 1, 0, 0
-        pyrosim.Send_Joint( name = "Rightleg_LowerRightleg" , parent= "Rightleg" , child = "LowerRightleg" , type = "revolute", position = [x, y, z], jointAxis = "1 0 0")
+        pyrosim.Send_Joint( name = "Rightleg_LowerRightleg" , parent= "Rightleg" , child = "LowerRightleg" , type = "revolute", position = [x, y, z], jointAxis = "0 1hh 0")
         # LINK: LowerRightleg (rel)
         length, width, height = 0.2, 0.2, 1
         x, y, z = 0, 0, -0.5

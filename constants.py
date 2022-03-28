@@ -14,8 +14,8 @@ gravity = -180
 startingValue = -PI
 stoppingValue = PI
 
-numberOfGenerations = 1
-populationSize = 1
+numberOfGenerations = 3
+populationSize = 3
 
 numSensorNeurons = 9
 numMotorNeurons = 8

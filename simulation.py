@@ -32,13 +32,14 @@ class SIMULATION:
     def Run(self):
         for i in range(0,c.ITERATIONS):
             # print(i)
-            
-            t.sleep(c.sleepingTime)
             p.stepSimulation()
             
             self.robot.Sense(i)
             self.robot.Think()
             self.robot.Act(i)
+            
+            if self.directOrGui == "GUI":
+                t.sleep(c.sleepingTime)
 
     def __del__(self):
         p.disconnect()
