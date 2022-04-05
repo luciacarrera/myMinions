@@ -4,6 +4,7 @@ import pybullet as p
 import pybullet_data
 from sensor import SENSOR
 from motor import MOTOR
+import constants as c
 import numpy as numpy
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 
@@ -12,8 +13,8 @@ class ROBOT:
 
     def __init__(self, solutionID):
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
-
-        self.Id = p.loadURDF("body.urdf")
+        for i in range(0, c.swarm):
+            self.Id = p.loadURDF("body"+ str(i)+".urdf")
 
         pyrosim.Prepare_To_Simulate(self.Id)
 

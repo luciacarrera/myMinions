@@ -15,7 +15,10 @@ class SOLUTION:
     def Start_Simulation(self,directOrGui):
         self.Create_World()
         self.Generate_Brain()
-        self.Generate_Body()
+        for i in range(0, c.swarm):
+            offset = i
+            robotNum = i
+            self.Generate_Body(offset, robotNum)
         os.system("start /B python3 simulate.py " + directOrGui + " " + self.myID)
         
 
@@ -43,18 +46,20 @@ class SOLUTION:
 
         pyrosim.End()
 
-    def Generate_Body(self):
-        pyrosim.Start_URDF("body.urdf")
-        
+    def Generate_Body(self, offset, robotNum):
+        pyrosim.Start_URDF("body"+ str(robotNum) +".urdf")
+
+        # BASE POSITION
+        baseX, baseY, baseZ = 0, offset + 0, 0
         ## TORSO
         # LINK: TORSO (abs)
         length, width, height = 1, 1, 1
-        x,y, z = 0, 0, 1 # z used to be 1+height/2
+        x,y, z = baseX + 0, baseY + 0, baseZ +1 # z used to be 1+height/2
         pyrosim.Send_Cube(name="Torso", pos=[x, y, z] , size=[length, width, height]  )
 
         ## BACKLEG
         # JOINT: TORSO - Backleg (abs)
-        x, y, z = 0, -0.5, 1
+        x, y, z = baseX + 0, baseY  -0.5, baseZ +  1
         pyrosim.Send_Joint( name = "Torso_Backleg" , parent= "Torso" , child = "Backleg" , type = "revolute", position = [x,y,z], jointAxis = "1 0 0")
         # LINK: Backleg (rel)
         length, width, height =  0.2, 1, 0.2
@@ -70,7 +75,7 @@ class SOLUTION:
         
         ## FRONTLEG
         # JOINT: TORSO - Frontleg (abs)
-        x, y, z = 0, 0.5, 1
+        x, y, z = baseX + 0, baseY + 0.5, baseZ +  1
         pyrosim.Send_Joint( name = "Torso_Frontleg" , parent= "Torso" , child = "Frontleg" , type = "revolute", position = [x, y, z], jointAxis = "1 0 0")
         # LINK: Frontleg (rel)
         length, width, height = 0.2, 1, 0.2
@@ -87,7 +92,7 @@ class SOLUTION:
 
         ## LEFTLEG
         # JOINT: TORSO - Leftleg (abs)
-        x, y, z = -0.5, 0, 1
+        x, y, z = baseX-0.5,baseY +  0, baseZ + 1
         pyrosim.Send_Joint( name = "Torso_Leftleg" , parent= "Torso" , child = "Leftleg" , type = "revolute", position = [x, y, z], jointAxis = "0 1 0")
         # LINK: Leftleg (rel)
         length, width, height = 1, 0.2, 0.2  # SIZE
@@ -104,7 +109,7 @@ class SOLUTION:
         
         ## RIGHTLEG
         # JOINT: TORSO - RightLeg (abs)
-        x, y, z = 0.5, 0, 1
+        x, y, z = baseX + 0.5,baseY +  0, baseZ + 1
         pyrosim.Send_Joint( name = "Torso_Rightleg" , parent= "Torso" , child = "Rightleg" , type = "revolute", position = [x, y, z], jointAxis = "0 1 0")
         # LINK: RightLeg (rel)
         length, width, height = 1, 0.2, 0.2  # SIZE

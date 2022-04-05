@@ -19,3 +19,5 @@ populationSize = 6 # cant do 10 because computer not very powerful :
 
 numSensorNeurons = 9
 numMotorNeurons = 8
+
+swarm = 3
