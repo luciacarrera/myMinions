@@ -13,13 +13,13 @@ class ROBOT:
 
     def __init__(self, solutionID):
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
+        self.swarmIds = []
         for i in range(0, c.swarm):
             bodyFile = "body"+ str(i)+".urdf"
-            self.Id = p.loadURDF(bodyFile)
+            self.swarmIds.append(p.loadURDF(bodyFile))
             
-        
-
-        pyrosim.Prepare_To_Simulate(self.Id)
+        for Id in self.swarmIds:
+            pyrosim.Prepare_To_Simulate(Id)
 
         self.Prepare_To_Sense()
 
@@ -52,7 +52,9 @@ class ROBOT:
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
-                self.motors[jointName].Set_Value(self.Id, desiredAngle)
+
+                for Id in self.swarmIds:
+                    self.motors[jointName].Set_Value(Id, desiredAngle)
                 #print(neuronName,jointName,desiredAngle)
 
 
@@ -61,9 +63,10 @@ class ROBOT:
         #self.nn.Print()
     
     def Get_Fitness(self):
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.Id)
-        basePosition = basePositionAndOrientation[0]
-        xPosition = basePosition[0]
+        for Id in self.swarmIds:
+            basePositionAndOrientation = p.getBasePositionAndOrientation(Id)
+            basePosition = basePositionAndOrientation[0]
+            xPosition = basePosition[0]
         
         # write coordinate in file
         tmpFileName = "temp" + self.solutionID + ".txt"

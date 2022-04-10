@@ -124,7 +124,7 @@ class SOLUTION:
          # LOWER RIGHTLEG
         # JOINT: Rightleg - LowerRightleg (rel)
         x, y, z = 1, 0, 0
-        pyrosim.Send_Joint( name = "Rightleg_LowerRightleg" , parent= "Rightleg" , child = "LowerRightleg" , type = "revolute", position = [x, y, z], jointAxis = "0 1hh 0")
+        pyrosim.Send_Joint( name = "Rightleg_LowerRightleg" , parent= "Rightleg" , child = "LowerRightleg" , type = "revolute", position = [x, y, z], jointAxis = "0 1 0")
         # LINK: LowerRightleg (rel)
         length, width, height = 0.2, 0.2, 1
         x, y, z = 0, 0, -0.5
@@ -165,4 +165,4 @@ class SOLUTION:
         self.myID = str(myID)
 
     def GET_FITNESS(self):
-        print("\n-------------FITNESS: ",self.fitness,"\n")
+        print("\n-------------FITNESS: ",str(self.myID),self.fitness,"\n")

@@ -14,11 +14,11 @@ gravity = -180
 startingValue = -PI
 stoppingValue = PI
 
-numberOfGenerations = 4
-populationSize = 8 # cant do 10 because computer not very powerful 
+numberOfGenerations = 4 # number of times ran
+populationSize = 1 # number of simultaneous runs in each running # cant do 10 because computer not very powerful 
 
 numSensorNeurons = 9
 numMotorNeurons = 8
 
-swarm = 2
-offset = 4
+swarm = 5
+offset = 5

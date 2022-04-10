@@ -13,6 +13,7 @@ class PARALLEL_HILLCLIMBER:
         for i in range(0,c.populationSize):
             self.parents[i] = SOLUTION(self.nextAvailableID)
             self.parents[i].SET_ID(self.nextAvailableID)
+            print(self.nextAvailableID)
             self.nextAvailableID += 1
         
         print(self.nextAvailableID)
