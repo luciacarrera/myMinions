@@ -15,10 +15,16 @@ class SOLUTION:
     def Start_Simulation(self,directOrGui):
         self.Create_World()
         self.Generate_Brain()
+
+        # I want them to be distributed along the x axis evenly (not starting from 0) and make it look like 
+        # a starting line of a race
+        distance =( c.swarm -1 ) * c.offset
+        position = - distance/2 
+
         for i in range(0, c.swarm):
-            offset = i
             robotNum = i
-            self.Generate_Body(offset, robotNum)
+            self.Generate_Body(position, robotNum)
+            position += c.offset
         os.system("start /B python3 simulate.py " + directOrGui + " " + self.myID)
         
 

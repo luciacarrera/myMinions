@@ -14,7 +14,10 @@ class ROBOT:
     def __init__(self, solutionID):
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         for i in range(0, c.swarm):
-            self.Id = p.loadURDF("body"+ str(i)+".urdf")
+            bodyFile = "body"+ str(i)+".urdf"
+            self.Id = p.loadURDF(bodyFile)
+            
+        
 
         pyrosim.Prepare_To_Simulate(self.Id)
 
@@ -23,6 +26,7 @@ class ROBOT:
         self.Prepare_To_Act()
 
         self.solutionID = str(solutionID)
+
         # creates a neural netrwork
         nnFile = "brain" + solutionID + ".nndf"
         self.nn = NEURAL_NETWORK(nnFile)
@@ -71,4 +75,5 @@ class ROBOT:
         print("\n\n")
         command = "rename " + tmpFileName + " " + fitnessFileName
         #print(command)
+
         os.system(command)
