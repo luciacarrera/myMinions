@@ -37,6 +37,7 @@ class SOLUTION:
 
         fitnessFile = open(fitnessFileName, "r")
         self.fitness = float(fitnessFile.readline())
+        #exit()
         #print(self.fitness)
         fitnessFile.close()
         os.system("del "+ fitnessFileName)
@@ -62,7 +63,7 @@ class SOLUTION:
         length, width, height = 1, 1, 1
         x,y, z = baseX + 0, baseY + 0, baseZ +1 # z used to be 1+height/2
         pyrosim.Send_Cube(name="Torso", pos=[x, y, z] , size=[length, width, height]  )
-
+        
         ## BACKLEG
         # JOINT: TORSO - Backleg (abs)
         x, y, z = baseX + 0, baseY  -0.5, baseZ +  1

@@ -17,10 +17,10 @@ class ROBOT:
         for i in range(0, c.swarm):
             bodyFile = "body"+ str(i)+".urdf"
             self.swarmIds.append(p.loadURDF(bodyFile))
-            
+        
         for Id in self.swarmIds:
             pyrosim.Prepare_To_Simulate(Id)
-
+        
         self.Prepare_To_Sense()
 
         self.Prepare_To_Act()
@@ -63,16 +63,28 @@ class ROBOT:
         #self.nn.Print()
     
     def Get_Fitness(self):
+        # get total X position
+        totalX = 0
+        # get best X pos
+        bestX = 100
         for Id in self.swarmIds:
             basePositionAndOrientation = p.getBasePositionAndOrientation(Id)
             basePosition = basePositionAndOrientation[0]
             xPosition = basePosition[0]
+            totalX += xPosition
+
+            # get best X considering best fitness is the smallest
+            if xPosition < bestX:
+                bestX = xPosition
         
+        # get average xPos
+        averageX = totalX / c.swarm
+
         # write coordinate in file
         tmpFileName = "temp" + self.solutionID + ".txt"
         fitnessFileName = "fitness" + self.solutionID + ".txt"
         fitnessFile = open(tmpFileName, "w")
-        fitnessFile.write(str(xPosition))
+        fitnessFile.write(str(averageX))
         fitnessFile.close()
 
         print("\n\n")
