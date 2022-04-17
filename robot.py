@@ -10,10 +10,11 @@ from pyrosim.neuralNetwork import NEURAL_NETWORK
 
 class ROBOT:
 
-    def __init__(self, solutionID):
+    def __init__(self, solutionID, swarmIndex):
+        self.swarmIndex = swarmIndex
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
-        self.Id = p.loadURDF("body.urdf")
+        self.Id = p.loadURDF("body"+str(swarmIndex)+".urdf")
 
         pyrosim.Prepare_To_Simulate(self.Id)
 
@@ -22,10 +23,14 @@ class ROBOT:
         self.Prepare_To_Act()
 
         self.solutionID = str(solutionID)
+
         # creates a neural netrwork
-        nnFile = "brain" + solutionID + ".nndf"
+        nnFile = "brain_b" + str(swarmIndex) + "v" + solutionID + ".nndf"
         self.nn = NEURAL_NETWORK(nnFile)
+        exit()
         os.system("del " + nnFile)
+       
+        
         
 
     def Prepare_To_Sense(self):
@@ -61,8 +66,8 @@ class ROBOT:
         xPosition = basePosition[0]
         
         # write coordinate in file
-        tmpFileName = "temp" + self.solutionID + ".txt"
-        fitnessFileName = "fitness" + self.solutionID + ".txt"
+        tmpFileName = "temp_b" +str(self.swarmIndex) + "v" + self.solutionID + ".txt"
+        fitnessFileName = "fitness_b" +str(self.swarmIndex) + "v" + self.solutionID + ".txt"
         fitnessFile = open(tmpFileName, "w")
         fitnessFile.write(str(xPosition))
         fitnessFile.close()

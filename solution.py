@@ -14,23 +14,31 @@ class SOLUTION:
 
     def Start_Simulation(self,directOrGui):
         self.Create_World()
-        self.Generate_Brain()
-        self.Generate_Body()
+
+        distance =( c.swarm -1 ) * c.offset
+        position = - distance/2 
+
+        for swarmIndex in range(0, c.swarm):
+            self.Generate_Brain(swarmIndex)
+            self.Generate_Body(position, swarmIndex)
+            position += c.offset
         os.system("start /B python3 simulate.py " + directOrGui + " " + self.myID)
         
 
     def Wait_For_Simulation_To_End(self):
         # read fitness
-        fitnessFileName = "fitness" + self.myID + ".txt"
+        self.swarmFitness = []
+        for swarmIndex in range(0, c.swarm):
+            fitnessFileName = "fitness_b" +str(swarmIndex) + "v" + self.myID + ".txt"
 
-        while not os.path.exists(fitnessFileName):
-            time.sleep(0.01)
+            while not os.path.exists(fitnessFileName):
+                time.sleep(0.01)
 
-        fitnessFile = open(fitnessFileName, "r")
-        self.fitness = float(fitnessFile.readline())
-        #print(self.fitness)
-        fitnessFile.close()
-        os.system("del "+ fitnessFileName)
+            fitnessFile = open(fitnessFileName, "r")
+            self.swarmFitness.append(float(fitnessFile.readline()))
+            #print(self.fitness)
+            fitnessFile.close()
+            os.system("del "+ fitnessFileName)
         #self.GET_FITNESS()
 
     def Create_World(self):
@@ -43,18 +51,19 @@ class SOLUTION:
 
         pyrosim.End()
 
-    def Generate_Body(self):
-        pyrosim.Start_URDF("body.urdf")
-        
+    def Generate_Body(self, offset,  swarmIndex):
+        pyrosim.Start_URDF("body" + str(swarmIndex) + ".urdf")
+        # BASE POSITION
+        baseX, baseY, baseZ = 0, offset + 0, 0
         ## TORSO
         # LINK: TORSO (abs)
         length, width, height = 1, 1, 1
-        x,y, z = 0, 0, 1 # z used to be 1+height/2
+        x,y, z = baseX + 0, baseY + 0, baseZ +1 # z used to be 1+height/2
         pyrosim.Send_Cube(name="Torso", pos=[x, y, z] , size=[length, width, height]  )
-
+        
         ## BACKLEG
         # JOINT: TORSO - Backleg (abs)
-        x, y, z = 0, -0.5, 1
+        x, y, z = baseX + 0, baseY  -0.5, baseZ +  1
         pyrosim.Send_Joint( name = "Torso_Backleg" , parent= "Torso" , child = "Backleg" , type = "revolute", position = [x,y,z], jointAxis = "1 0 0")
         # LINK: Backleg (rel)
         length, width, height =  0.2, 1, 0.2
@@ -70,7 +79,7 @@ class SOLUTION:
         
         ## FRONTLEG
         # JOINT: TORSO - Frontleg (abs)
-        x, y, z = 0, 0.5, 1
+        x, y, z = baseX + 0, baseY + 0.5, baseZ +  1
         pyrosim.Send_Joint( name = "Torso_Frontleg" , parent= "Torso" , child = "Frontleg" , type = "revolute", position = [x, y, z], jointAxis = "1 0 0")
         # LINK: Frontleg (rel)
         length, width, height = 0.2, 1, 0.2
@@ -87,7 +96,7 @@ class SOLUTION:
 
         ## LEFTLEG
         # JOINT: TORSO - Leftleg (abs)
-        x, y, z = -0.5, 0, 1
+        x, y, z = baseX-0.5,baseY +  0, baseZ + 1
         pyrosim.Send_Joint( name = "Torso_Leftleg" , parent= "Torso" , child = "Leftleg" , type = "revolute", position = [x, y, z], jointAxis = "0 1 0")
         # LINK: Leftleg (rel)
         length, width, height = 1, 0.2, 0.2  # SIZE
@@ -104,7 +113,7 @@ class SOLUTION:
         
         ## RIGHTLEG
         # JOINT: TORSO - RightLeg (abs)
-        x, y, z = 0.5, 0, 1
+        x, y, z = baseX + 0.5,baseY +  0, baseZ + 1
         pyrosim.Send_Joint( name = "Torso_Rightleg" , parent= "Torso" , child = "Rightleg" , type = "revolute", position = [x, y, z], jointAxis = "0 1 0")
         # LINK: RightLeg (rel)
         length, width, height = 1, 0.2, 0.2  # SIZE
@@ -113,7 +122,7 @@ class SOLUTION:
          # LOWER RIGHTLEG
         # JOINT: Rightleg - LowerRightleg (rel)
         x, y, z = 1, 0, 0
-        pyrosim.Send_Joint( name = "Rightleg_LowerRightleg" , parent= "Rightleg" , child = "LowerRightleg" , type = "revolute", position = [x, y, z], jointAxis = "0 1hh 0")
+        pyrosim.Send_Joint( name = "Rightleg_LowerRightleg" , parent= "Rightleg" , child = "LowerRightleg" , type = "revolute", position = [x, y, z], jointAxis = "0 1 0")
         # LINK: LowerRightleg (rel)
         length, width, height = 0.2, 0.2, 1
         x, y, z = 0, 0, -0.5
@@ -121,8 +130,9 @@ class SOLUTION:
 
         pyrosim.End()
 
-    def Generate_Brain(self):
-        pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
+    def Generate_Brain(self, index):
+        pyrosim.Start_NeuralNetwork("brain_b" + str(index) + "v"+ str(self.myID) + ".nndf")
+
         
         linkNames = ["Torso", "Backleg", "Frontleg", "Leftleg", "Rightleg", "LowerBackleg", "LowerFrontleg", "LowerLeftleg", "LowerRightleg"]
         jointNames = ["Torso_Backleg", "Torso_Frontleg", "Torso_Leftleg", "Torso_Rightleg", "Backleg_LowerBackleg", "Frontleg_LowerFrontleg", "Leftleg_LowerLeftleg", "Rightleg_LowerRightleg"]

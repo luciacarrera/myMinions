@@ -7,7 +7,6 @@ class PARALLEL_HILLCLIMBER:
 
     def __init__(self):
         self.nextAvailableID = 0
-
         self.parents = {}
 
         for i in range(0,c.populationSize):
@@ -49,18 +48,41 @@ class PARALLEL_HILLCLIMBER:
 
     def Select(self):
         # if child has better fitness than parent, it dethrones them
+        # we have to do this for everysingle member of the swarm
         for key in self.parents:
-            if self.parents[key].fitness > self.children[key].fitness :
+            parentsAverageFitness, kidsAverageFitness = 0, 0
+
+            # get the average fitness from whole swarm
+            for index in range(0, c.swarm):
+                # see if average x is better in parents or child
+                parentsAverageFitness += self.parents[key].swarmFitness[index]
+                kidsAverageFitness += self.children[key].swarmFitness[index]
+
+            # divide by swarm
+            parentsAverageFitness = parentsAverageFitness / c.swarm
+            kidsAverageFitness = kidsAverageFitness / c.swarm
+
+            if parentsAverageFitness > kidsAverageFitness  :
                 self.parents[key] = self.children[key]
 
     #  re-evaluates the parent with graphics turned on.
+    # do it for each robot
     def Show_Best(self):
         best_parent = 0
         lowest_fitness = 1000000
+
+        # show best average swarm
         for key in self.parents:
-            if self.parents[key].fitness < lowest_fitness:
+            totalFitness = 0
+
+            for index in range(0,c.swarm):
+                totalFitness += self.parents[key].swarmFitness[index]
+
+            averageFitness = totalFitness / c.swarm
+
+            if averageFitness < lowest_fitness:
                 best_parent = key
-                lowest_fitness = self.parents[key].fitness 
+                lowest_fitness = averageFitness
 
         self.parents[best_parent].Start_Simulation("GUI")
     
@@ -75,4 +97,4 @@ class PARALLEL_HILLCLIMBER:
         
     def Print(self):
         for key in self.parents:
-            print("\n\n---------FITNESS\nParent:",self.parents[key].fitness,"Child:", self.children[key].fitness, "\n")
+            print("\n\n---------FITNESS\nParent:",self.parents[key].swarmFitness,"\nChild:", self.children[key].swarmFitness, "\n")

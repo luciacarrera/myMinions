@@ -14,8 +14,11 @@ gravity = -180
 startingValue = -PI
 stoppingValue = PI
 
-numberOfGenerations = 10
-populationSize = 6 # cant do 10 because computer not very powerful :
+numberOfGenerations = 6
+populationSize = 2 # cant do 10 because computer not very powerful :
 
 numSensorNeurons = 9
 numMotorNeurons = 8
+
+swarm = 5
+offset = 5

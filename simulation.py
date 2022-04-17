@@ -26,7 +26,12 @@ class SIMULATION:
         p.setGravity(0,0,c.gravity)
 
         self.world = WORLD()
-        self.robot = ROBOT(self.solutionID)
+        self.robots = []
+
+        ## create swarm of robots
+        for swarmIndex in range(0,c.swarm):
+            self.robots.append(ROBOT(self.solutionID, swarmIndex))
+            #print(solutionID, swarmIndex)
 
         
     def Run(self):
@@ -34,9 +39,10 @@ class SIMULATION:
             # print(i)
             p.stepSimulation()
             
-            self.robot.Sense(i)
-            self.robot.Think()
-            self.robot.Act(i)
+            for robot in self.robots:
+                robot.Sense(i)
+                robot.Think()
+                robot.Act(i)
             
             if self.directOrGui == "GUI":
                 t.sleep(c.sleepingTime)
@@ -45,5 +51,6 @@ class SIMULATION:
         p.disconnect()
 
     def Get_Fitness(self):
-        self.robot.Get_Fitness()
+        for robot in self.robots:
+            robot.Get_Fitness()
 
