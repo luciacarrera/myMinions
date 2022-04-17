@@ -15,7 +15,7 @@ startingValue = -PI
 stoppingValue = PI
 
 numberOfGenerations = 8 # number of times ran
-populationSize = 2 # number of simultaneous runs in each running # cant do 10 because computer not very powerful 
+populationSize = 3 # number of simultaneous runs in each running # cant do 10 because computer not very powerful 
 
 numSensorNeurons = 9
 numMotorNeurons = 8

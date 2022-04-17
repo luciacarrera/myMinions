@@ -27,10 +27,15 @@ class ROBOT:
 
         self.solutionID = str(solutionID)
 
+        # array for swarm's neural network
+        self.nnFiles = []
+
         # creates a neural netrwork
-        nnFile = "brain" + solutionID + ".nndf"
-        self.nn = NEURAL_NETWORK(nnFile)
-        os.system("del " + nnFile)
+        # for the entire swarm
+        for i in range(0, c.swarm):
+            nnFile = "brain_b" + str(i) + "v" +solutionID + ".nndf"
+            self.nnFiles.append(NEURAL_NETWORK(nnFile))
+            os.system("del " + nnFile)
         
 
     def Prepare_To_Sense(self):
@@ -48,21 +53,26 @@ class ROBOT:
             self.motors[jointName] = MOTOR(jointName)
 
     def Act(self, t):
-        for neuronName in self.nn.Get_Neuron_Names():
-            if self.nn.Is_Motor_Neuron(neuronName):
-                jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                desiredAngle = self.nn.Get_Value_Of(neuronName)
+        robId = 0
+        for nn in self.nnFiles:
+            for neuronName in nn.Get_Neuron_Names():
+                if nn.Is_Motor_Neuron(neuronName):
+                    jointName = nn.Get_Motor_Neurons_Joint(neuronName)
+                    desiredAngle = nn.Get_Value_Of(neuronName)
 
-                for Id in self.swarmIds:
-                    self.motors[jointName].Set_Value(Id, desiredAngle)
-                #print(neuronName,jointName,desiredAngle)
+                    
+                    self.motors[jointName].Set_Value(robId, desiredAngle)
+            robId += 1
+                    #print(neuronName,jointName,desiredAngle)
 
 
     def Think(self):
-        self.nn.Update()
-        #self.nn.Print()
+        for nn in self.nnFiles:
+            nn.Update()
+            #nn.Print()
     
     def Get_Fitness(self):
+        
         # get total X position
         totalX = 0
         # get best X pos

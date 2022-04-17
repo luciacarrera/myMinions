@@ -1,3 +1,4 @@
+from fileinput import filename
 import time
 import numpy
 import pyrosim.pyrosim as pyrosim
@@ -14,7 +15,10 @@ class SOLUTION:
 
     def Start_Simulation(self,directOrGui):
         self.Create_World()
-        self.Generate_Brain()
+
+        # generate the individual brain of each robot in the swarm
+        for i in range(0, c.swarm):
+            self.Generate_Brain(i)
 
         # I want them to be distributed along the x axis evenly (not starting from 0) and make it look like 
         # a starting line of a race
@@ -49,7 +53,7 @@ class SOLUTION:
         # cube is part of the world
         length, width, height = 1, 1, 1
         x,y, z = 0,5, height/2
-        pyrosim.Send_Cube(name="Box", pos=[x, y, z] , size=[length, width, height]  )
+        #pyrosim.Send_Cube(name="Box", pos=[x, y, z] , size=[length, width, height]  )
 
         pyrosim.End()
 
@@ -133,8 +137,8 @@ class SOLUTION:
 
         pyrosim.End()
 
-    def Generate_Brain(self):
-        pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
+    def Generate_Brain(self, index):
+        pyrosim.Start_NeuralNetwork("brain_b" + str(index) + "v"+ str(self.myID) + ".nndf")
         
         linkNames = ["Torso", "Backleg", "Frontleg", "Leftleg", "Rightleg", "LowerBackleg", "LowerFrontleg", "LowerLeftleg", "LowerRightleg"]
         jointNames = ["Torso_Backleg", "Torso_Frontleg", "Torso_Leftleg", "Torso_Rightleg", "Backleg_LowerBackleg", "Frontleg_LowerFrontleg", "Leftleg_LowerLeftleg", "Rightleg_LowerRightleg"]
@@ -146,7 +150,7 @@ class SOLUTION:
             if i < links:
                 pyrosim.Send_Sensor_Neuron(name = i , linkName = linkNames[i])
             else:
-                pyrosim.Send_Motor_Neuron( name = i , jointName = jointNames[i - links])
+                pyrosim.Send_Motor_Neuron(name = i , jointName = jointNames[i - links])
 
         # generate synapses
         # iterate over sensor neurons
