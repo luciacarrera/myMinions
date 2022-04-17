@@ -27,7 +27,6 @@ class ROBOT:
         # creates a neural netrwork
         nnFile = "brain_b" + str(swarmIndex) + "v" + solutionID + ".nndf"
         self.nn = NEURAL_NETWORK(nnFile)
-        exit()
         os.system("del " + nnFile)
        
         
