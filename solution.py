@@ -142,9 +142,9 @@ class SOLUTION:
 
         for i in range(0, joints + links):
             if i < links:
-                pyrosim.Send_Sensor_Neuron(name = i , linkName = linkNames[i])
+                pyrosim.Send_Sensor_Neuron(name = i * index + 1, linkName = linkNames[i])
             else:
-                pyrosim.Send_Motor_Neuron( name = i , jointName = jointNames[i - links])
+                pyrosim.Send_Motor_Neuron( name = i * index + 1, jointName = jointNames[i - links])
 
         # generate synapses
         # iterate over sensor neurons
