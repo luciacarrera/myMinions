@@ -20,7 +20,6 @@ class PARALLEL_HILLCLIMBER:
 
         #print(self.matrix)
 
-
         for i in range(0,c.populationSize):
             self.parents[i] = SOLUTION(self.nextAvailableID)
             self.parents[i].SET_ID(self.nextAvailableID)
@@ -36,9 +35,12 @@ class PARALLEL_HILLCLIMBER:
             self.Evolve_For_One_Generation()
         
         # save matrix in text file
-        file = "results.xlsx"
-        numpy.savetxt(file, self.matrix)
-        
+        file = "results.csv"
+        numpy.savetxt(file, self.matrix, delimiter=',', fmt='%s')
+
+        file2 = "results.npy"
+        numpy.save(file2, self.matrix)      
+        print(numpy.load(file2))  
 
 
     def Evolve_For_One_Generation(self):
@@ -49,7 +51,7 @@ class PARALLEL_HILLCLIMBER:
         #exit()
         self.Select()
         self.Save()
-        self.Show_Best()
+        #self.Show_Best()
     
         
     def Spawn(self):
