@@ -3,12 +3,23 @@ import constants as c
 import copy
 import sys
 import time
+import numpy as numpy
 
 class PARALLEL_HILLCLIMBER:
 
     def __init__(self):
         self.nextAvailableID = 0
         self.parents = {}
+
+        # numpy matrix, we first create a matrix filled with zeroes
+        # the matrix will have population size and gen size
+        p = c.populationSize
+        g = c.numberOfGenerations
+        
+        self.matrix = numpy.zeros((p,g))
+
+        #print(self.matrix)
+
 
         for i in range(0,c.populationSize):
             self.parents[i] = SOLUTION(self.nextAvailableID)
@@ -21,8 +32,13 @@ class PARALLEL_HILLCLIMBER:
     def Evolve(self):
         self.Evaluate(self.parents)
         # current Generation loop
-        for currentGeneration in range(0,c.numberOfGenerations):
+        for self.currentGeneration in range(0,c.numberOfGenerations):
             self.Evolve_For_One_Generation()
+        
+        # save matrix in text file
+        file = "results.xlsx"
+        numpy.savetxt(file, self.matrix)
+        
 
 
     def Evolve_For_One_Generation(self):
@@ -32,6 +48,7 @@ class PARALLEL_HILLCLIMBER:
         self.Print()
         #exit()
         self.Select()
+        self.Save()
         self.Show_Best()
     
         
@@ -103,3 +120,9 @@ class PARALLEL_HILLCLIMBER:
     def Print(self):
         for key in self.parents:
             print("\n\n----------FITNESS----------\nParent\n\tIndividual Fitnesses:",self.parents[key].swarmFitness,"\n\tAverage Fitness: ",round(self.parents[key].avFitness,4),"\nChild\n\tIndividual Fitnesses:", self.children[key].swarmFitness,"\n\tAverage Fitness: ",round(self.children[key].avFitness,4), "\n---------------------------\n")
+
+    def Save(self):
+        for key in range(0,c.populationSize):
+            self.matrix[key][self.currentGeneration] = self.parents[key].avFitness
+        print(self.matrix)
+        print()

@@ -15,7 +15,7 @@ startingValue = -PI
 stoppingValue = PI
 
 numberOfGenerations = 5
-populationSize = 1 # cant do 10 because computer not very powerful :
+populationSize = 2 # cant do 10 because computer not very powerful :
 
 numSensorNeurons = 9
 numMotorNeurons = 8
