@@ -10,7 +10,7 @@ class HILLCLIMBER:
 
     def Evolve(self):
         #directOrGui = sys.argv[1]
-        self.parent.Evaluate("DIRECT") 
+        self.parent.Evaluate("GUI") 
 
         # current Generation loop
         for currentGeneration in range(0,c.numberOfGenerations):
@@ -21,7 +21,7 @@ class HILLCLIMBER:
         self.Spawn()
         self.Mutate()
         self.child.Evaluate("DIRECT")
-        print("\n\nFITNESS\nParent:",self.parent.fitness,"Child:", self.child.fitness, "\n")
+        print("\n\nFITNESS\nParent:",self.parent.fitness," Parents' Average Fitness:","\nChild:", self.child.fitness, " Childrens' Average Fitness:","\n")
         self.Select()
     
     def Spawn(self):

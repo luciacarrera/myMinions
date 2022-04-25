@@ -8,8 +8,13 @@ import constants as c
 class SOLUTION:
 
     def __init__(self, myID):
-        self.weights =  numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons)
-        self.weights = self.weights * 2 - 1
+        self.swarmWeights = []
+        
+        for index in range(0, c.swarm):
+            weights =  numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons)
+            weights = weights * 2 - 1
+            self.swarmWeights.append(weights)
+        
         #self.myID = str(myID)
 
     def Start_Simulation(self,directOrGui):
@@ -28,6 +33,7 @@ class SOLUTION:
     def Wait_For_Simulation_To_End(self):
         # read fitness
         self.swarmFitness = []
+        sumFitness = 0
         for swarmIndex in range(0, c.swarm):
             fitnessFileName = "fitness_b" +str(swarmIndex) + "v" + self.myID + ".txt"
 
@@ -35,10 +41,17 @@ class SOLUTION:
                 time.sleep(0.01)
 
             fitnessFile = open(fitnessFileName, "r")
-            self.swarmFitness.append(float(fitnessFile.readline()))
+            robotsFitness = float(fitnessFile.readline())
+            self.swarmFitness.append(robotsFitness)
             #print(self.fitness)
             fitnessFile.close()
             os.system("del "+ fitnessFileName)
+            sumFitness += robotsFitness
+            # Calculate swarmAverageFitness
+        
+        # divide the sumFitness by swarm to get average fitness
+        self.avFitness = sumFitness / c.swarm
+        
         #self.GET_FITNESS()
 
     def Create_World(self):
@@ -131,9 +144,10 @@ class SOLUTION:
         pyrosim.End()
 
     def Generate_Brain(self, index):
-        pyrosim.Start_NeuralNetwork("brain_b" + str(index) + "v"+ str(self.myID) + ".nndf")
-
+        brainFile = "brain_b" + str(index) + "v"+ str(self.myID) + ".nndf"
+        pyrosim.Start_NeuralNetwork(brainFile)
         
+
         linkNames = ["Torso", "Backleg", "Frontleg", "Leftleg", "Rightleg", "LowerBackleg", "LowerFrontleg", "LowerLeftleg", "LowerRightleg"]
         jointNames = ["Torso_Backleg", "Torso_Frontleg", "Torso_Leftleg", "Torso_Rightleg", "Backleg_LowerBackleg", "Frontleg_LowerFrontleg", "Leftleg_LowerLeftleg", "Rightleg_LowerRightleg"]
         
@@ -142,23 +156,25 @@ class SOLUTION:
 
         for i in range(0, joints + links):
             if i < links:
-                pyrosim.Send_Sensor_Neuron(name = i * index + 1, linkName = linkNames[i])
+                pyrosim.Send_Sensor_Neuron(name = i, linkName = linkNames[i])
             else:
-                pyrosim.Send_Motor_Neuron( name = i * index + 1, jointName = jointNames[i - links])
+                pyrosim.Send_Motor_Neuron( name = i, jointName = jointNames[i - links])
 
         # generate synapses
+        weights = self.swarmWeights[index]
         # iterate over sensor neurons
         for currentRow in range(0, c.numSensorNeurons):
             # iterate over motor neurons
             for currentColumn in range(0,c.numMotorNeurons):
-                pyrosim.Send_Synapse(sourceNeuronName= currentRow, targetNeuronName=currentColumn + c.numSensorNeurons,weight = self.weights[currentRow][currentColumn])
+                pyrosim.Send_Synapse(sourceNeuronName= currentRow, targetNeuronName=currentColumn + c.numSensorNeurons,weight = weights[currentRow][currentColumn])
                  
         pyrosim.End()
 
     def Mutate(self):
-        chosenRow = random.randint(0, c.numSensorNeurons - 1)
-        chosenColumn = random.randint(0, c.numMotorNeurons - 1)
-        self.weights[chosenRow, chosenColumn] = random.random() * 2 - 1 #might need to change 2 for numMotorNeurons
+        for index in range(0, c.swarm):
+            chosenRow = random.randint(0, c.numSensorNeurons - 1)
+            chosenColumn = random.randint(0, c.numMotorNeurons - 1)
+            self.swarmWeights[index][chosenRow, chosenColumn] = random.random() * 2 - 1 #might need to change 2 for numMotorNeurons
 
     def SET_ID(self, myID):
         self.myID = str(myID)

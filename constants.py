@@ -1,7 +1,7 @@
 import numpy 
 
 PI = numpy.pi
-ITERATIONS = 1000
+ITERATIONS = 500
 
 amplitude = +PI/4
 frequency = 1/40
@@ -14,8 +14,8 @@ gravity = -180
 startingValue = -PI
 stoppingValue = PI
 
-numberOfGenerations = 6
-populationSize = 2 # cant do 10 because computer not very powerful :
+numberOfGenerations = 5
+populationSize = 1 # cant do 10 because computer not very powerful :
 
 numSensorNeurons = 9
 numMotorNeurons = 8

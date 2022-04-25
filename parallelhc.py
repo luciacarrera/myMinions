@@ -2,6 +2,7 @@ from solution import SOLUTION
 import constants as c
 import copy
 import sys
+import time
 
 class PARALLEL_HILLCLIMBER:
 
@@ -31,6 +32,7 @@ class PARALLEL_HILLCLIMBER:
         self.Print()
         #exit()
         self.Select()
+        self.Show_Best()
     
         
     def Spawn(self):
@@ -62,6 +64,7 @@ class PARALLEL_HILLCLIMBER:
             parentsAverageFitness = parentsAverageFitness / c.swarm
             kidsAverageFitness = kidsAverageFitness / c.swarm
 
+            # if parents fitness is bigger (aka worse) then childrens then children become parents
             if parentsAverageFitness > kidsAverageFitness  :
                 self.parents[key] = self.children[key]
 
@@ -85,6 +88,7 @@ class PARALLEL_HILLCLIMBER:
                 lowest_fitness = averageFitness
 
         self.parents[best_parent].Start_Simulation("GUI")
+        self.parents[best_parent].Wait_For_Simulation_To_End()
     
     def Evaluate(self, solutions):
         #directOrGui = sys.argv[1]
@@ -94,7 +98,8 @@ class PARALLEL_HILLCLIMBER:
         for key in solutions:
             solutions[key].Wait_For_Simulation_To_End()
             
-        
+
+    # WHAT IS ACTUALLY PRINTING 
     def Print(self):
         for key in self.parents:
-            print("\n\n---------FITNESS\nParent:",self.parents[key].swarmFitness,"\nChild:", self.children[key].swarmFitness, "\n")
+            print("\n\n----------FITNESS----------\nParent\n\tIndividual Fitnesses:",self.parents[key].swarmFitness,"\n\tAverage Fitness: ",round(self.parents[key].avFitness,4),"\nChild\n\tIndividual Fitnesses:", self.children[key].swarmFitness,"\n\tAverage Fitness: ",round(self.children[key].avFitness,4), "\n---------------------------\n")

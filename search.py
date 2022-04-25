@@ -8,9 +8,7 @@ os.system("del temp*.txt")
 
 phc = PARALLEL_HILLCLIMBER()
 phc.Evolve()
-phc.Show_Best()
-
-
+#phc.Show_Best()
 
 
 
