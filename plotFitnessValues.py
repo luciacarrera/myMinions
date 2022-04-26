@@ -7,12 +7,21 @@ valuesB = numpy.load("data/avFit_B.npy")
 
 # get rows of matrix (A and B will have same shape)
 rows = valuesA.shape[0]
+cols = valuesA.shape[1]
+
+x = []
+for i in range(0, cols):
+    x.append(i)
+
 
 for i in range(0, rows):
-    plt.plot(valuesA[i,:], label = "Variant A", linewidth = 3)
-    plt.plot(valuesB[i,:], label = "Variant B", linewidth = 3)
-    plt.legend()
-    plt.show()
+    labelA = "Variant A, P" + str(i)
+    labelB = "Variant B, P" + str(i)
+    plt.plot(x, valuesA[i,:], label = labelA, linewidth = 1)
+    plt.plot(x, valuesB[i,:], label = labelB, linewidth = 3)
+
+plt.legend()
+plt.show()
 
 '''
 
