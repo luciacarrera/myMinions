@@ -36,10 +36,10 @@ class PARALLEL_HILLCLIMBER:
             self.Evolve_For_One_Generation()
         
         # save matrix in text file
-        file = "results"+self.variant+".csv"
+        file = "data/avFit_"+self.variant+".csv"
         numpy.savetxt(file, self.matrix, delimiter=',', fmt='%s')
 
-        file2 = "results"+self.variant+".npy"
+        file2 = "data/avFit_"+self.variant+".npy"
         numpy.save(file2, self.matrix)      
         print(numpy.load(file2))  
 
