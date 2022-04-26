@@ -69,10 +69,13 @@ class PARALLEL_HILLCLIMBER:
     
 
     def Select(self):
+
+       
         # if child has better fitness than parent, it dethrones them
         # we have to do this for everysingle member of the swarm
         for key in self.parents:
             parentsAverageFitness, kidsAverageFitness = 0, 0
+            parentsBestFitness, kidsBestFitness = 1000, 1000
 
             # get the average fitness from whole swarm
             for index in range(0, c.swarm):
@@ -80,13 +83,30 @@ class PARALLEL_HILLCLIMBER:
                 parentsAverageFitness += self.parents[key].swarmFitness[index]
                 kidsAverageFitness += self.children[key].swarmFitness[index]
 
+                # get best fitness
+                if self.parents[key].swarmFitness[index] < parentsBestFitness:
+                    parentsBestFitness = self.parents[key].swarmFitness[index]
+                if self.children[key].swarmFitness[index] < kidsBestFitness:
+                    kidsBestFitness = self.children[key].swarmFitness[index]
+
             # divide by swarm
             parentsAverageFitness = parentsAverageFitness / c.swarm
             kidsAverageFitness = kidsAverageFitness / c.swarm
 
-            # if parents fitness is bigger (aka worse) then childrens then children become parents
-            if parentsAverageFitness > kidsAverageFitness  :
-                self.parents[key] = self.children[key]
+            # fitness function for variant A: swarm with best average fitness wins
+            if self.fitness == "A":
+
+                # if parents fitness is bigger (aka worse) then childrens then children become parents
+                if parentsAverageFitness > kidsAverageFitness  :
+                    self.parents[key] = self.children[key]
+
+            # fitness function for variant B
+            # for this fitness function we will just pick the swarm who has the
+            # robot with the best fitness, regardless of the groups
+            elif self.variant == "B":
+                # if parents fitness is bigger (aka worse) then childrens then children become parents
+                if parentsBestFitness > kidsBestFitness  :
+                    self.parents[key] = self.children[key]
 
     #  re-evaluates the parent with graphics turned on.
     # do it for each robot
