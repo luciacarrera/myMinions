@@ -7,7 +7,8 @@ import numpy as numpy
 
 class PARALLEL_HILLCLIMBER:
 
-    def __init__(self):
+    def __init__(self, variant):
+        self.variant = variant
         self.nextAvailableID = 0
         self.parents = {}
 
@@ -35,10 +36,10 @@ class PARALLEL_HILLCLIMBER:
             self.Evolve_For_One_Generation()
         
         # save matrix in text file
-        file = "results.csv"
+        file = "results"+self.variant+".csv"
         numpy.savetxt(file, self.matrix, delimiter=',', fmt='%s')
 
-        file2 = "results.npy"
+        file2 = "results"+self.variant+".npy"
         numpy.save(file2, self.matrix)      
         print(numpy.load(file2))  
 
@@ -121,7 +122,7 @@ class PARALLEL_HILLCLIMBER:
     # WHAT IS ACTUALLY PRINTING 
     def Print(self):
         for key in self.parents:
-            print("\n\n----------FITNESS----------\nParent\n\tIndividual Fitnesses:",self.parents[key].swarmFitness,"\n\tAverage Fitness: ",round(self.parents[key].avFitness,4),"\nChild\n\tIndividual Fitnesses:", self.children[key].swarmFitness,"\n\tAverage Fitness: ",round(self.children[key].avFitness,4), "\n---------------------------\n")
+            print("\n\n----------FITNESS - VARIANT "+self.variant+" ----------\nParent\n\tIndividual Fitnesses:",self.parents[key].swarmFitness,"\n\tAverage Fitness: ",round(self.parents[key].avFitness,4),"\nChild\n\tIndividual Fitnesses:", self.children[key].swarmFitness,"\n\tAverage Fitness: ",round(self.children[key].avFitness,4), "\n---------------------------\n")
 
     def Save(self):
         for key in range(0,c.populationSize):

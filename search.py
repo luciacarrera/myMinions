@@ -6,7 +6,7 @@ os.system("del fitness*.txt")
 os.system("del temp*.txt")
 
 
-phc = PARALLEL_HILLCLIMBER()
+phc = PARALLEL_HILLCLIMBER("A")
 phc.Evolve()
 phc.Show_Best()
 
