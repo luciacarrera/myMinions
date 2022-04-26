@@ -34,6 +34,7 @@ class SOLUTION:
         # read fitness
         self.swarmFitness = []
         sumFitness = 0
+        bestFitness = 1000
         for swarmIndex in range(0, c.swarm):
             fitnessFileName = "fitness_b" +str(swarmIndex) + "v" + self.myID + ".txt"
 
@@ -47,10 +48,13 @@ class SOLUTION:
             fitnessFile.close()
             os.system("del "+ fitnessFileName)
             sumFitness += robotsFitness
+            if bestFitness > robotsFitness:
+                bestFitness = robotsFitness
             # Calculate swarmAverageFitness
         
         # divide the sumFitness by swarm to get average fitness
         self.avFitness = sumFitness / c.swarm
+        self.bestFitness = bestFitness
         
         #self.GET_FITNESS()
 

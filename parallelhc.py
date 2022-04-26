@@ -74,30 +74,12 @@ class PARALLEL_HILLCLIMBER:
         # if child has better fitness than parent, it dethrones them
         # we have to do this for everysingle member of the swarm
         for key in self.parents:
-            parentsAverageFitness, kidsAverageFitness = 0, 0
-            parentsBestFitness, kidsBestFitness = 1000, 1000
-
-            # get the average fitness from whole swarm
-            for index in range(0, c.swarm):
-                # see if average x is better in parents or child
-                parentsAverageFitness += self.parents[key].swarmFitness[index]
-                kidsAverageFitness += self.children[key].swarmFitness[index]
-
-                # get best fitness
-                if self.parents[key].swarmFitness[index] < parentsBestFitness:
-                    parentsBestFitness = self.parents[key].swarmFitness[index]
-                if self.children[key].swarmFitness[index] < kidsBestFitness:
-                    kidsBestFitness = self.children[key].swarmFitness[index]
-
-            # divide by swarm
-            parentsAverageFitness = parentsAverageFitness / c.swarm
-            kidsAverageFitness = kidsAverageFitness / c.swarm
 
             # fitness function for variant A: swarm with best average fitness wins
-            if self.fitness == "A":
+            if self.variant == "A":
 
                 # if parents fitness is bigger (aka worse) then childrens then children become parents
-                if parentsAverageFitness > kidsAverageFitness  :
+                if self.parents[key].avFitness > self.children[key].avFitness  :
                     self.parents[key] = self.children[key]
 
             # fitness function for variant B
@@ -105,7 +87,7 @@ class PARALLEL_HILLCLIMBER:
             # robot with the best fitness, regardless of the groups
             elif self.variant == "B":
                 # if parents fitness is bigger (aka worse) then childrens then children become parents
-                if parentsBestFitness > kidsBestFitness  :
+                if self.parents[key].bestFitness > self.children[key].bestFitness  :
                     self.parents[key] = self.children[key]
 
     #  re-evaluates the parent with graphics turned on.
@@ -142,7 +124,18 @@ class PARALLEL_HILLCLIMBER:
     # WHAT IS ACTUALLY PRINTING 
     def Print(self):
         for key in self.parents:
-            print("\n\n----------FITNESS - VARIANT "+self.variant+" ----------\nParent\n\tIndividual Fitnesses:",self.parents[key].swarmFitness,"\n\tAverage Fitness: ",round(self.parents[key].avFitness,4),"\nChild\n\tIndividual Fitnesses:", self.children[key].swarmFitness,"\n\tAverage Fitness: ",round(self.children[key].avFitness,4), "\n---------------------------\n")
+            print("\n----------FITNESS - VARIANT "+self.variant+ "----------\n")
+
+            print("Parent")
+            print("\tIndividual Fitnesses:",self.parents[key].swarmFitness)
+            print("\tAverage Fitness: ",round(self.parents[key].avFitness,4))
+            print("\tBest Fitness: ",round(self.parents[key].bestFitness,4))
+
+            print("Child")
+            print("\tIndividual Fitnesses:", self.children[key].swarmFitness)
+            print("\tAverage Fitness: ",round(self.children[key].avFitness,4))
+            print("\tBest Fitness: ",round(self.children[key].bestFitness,4))
+            print("---------------------------\n")
 
     def Save(self):
         for key in range(0,c.populationSize):
